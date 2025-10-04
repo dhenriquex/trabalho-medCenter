@@ -1,0 +1,110 @@
+.footer {
+  width: 100%;
+  background:  #273b76;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.footerArea {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 50px 20px;
+  margin: 0 auto;
+}
+
+.info {
+  flex: 1;
+}
+
+.aboutUs h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.aboutUs p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.followText {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.imgs {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  filter: invert(1);
+}
+
+.imgs img {
+  width:auto;
+  height: 25px;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.imgs img:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 5px;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.column ul li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.quickAccess {
+  margin-top: 20px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.buttons button {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buttons button:hover {
+  background: #ffcc00;
+  color: #1b2850;
+}
+
+.copy {
+  background: #1b2850;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.85rem;
+  color: #bbb;
+}
