@@ -71,7 +71,7 @@
 
 .dropdown:hover .services {
   display: block;
-  
+  z-index: 1;
 }
 .info a:hover{
   color: #2448b2;
