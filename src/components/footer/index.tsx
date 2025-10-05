@@ -1,10 +1,11 @@
+//footer do trojeto
 import { redeSocial } from "../../data/redeSocial";
+// importa os dados das redes sociais
 import styles from "./footer.module.css";
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerArea}>
-    
         <div className={styles.info}>
           <div className={styles.aboutUs}>
             <h3>MedCenter</h3>
@@ -22,7 +23,6 @@ export const Footer = () => {
           </div>
         </div>
 
-      
         <div className={styles.column}>
           <h3>Serviços</h3>
           <ul>
@@ -32,7 +32,6 @@ export const Footer = () => {
           </ul>
         </div>
 
-    
         <div className={styles.column}>
           <h3>Atendimento</h3>
           <ul>

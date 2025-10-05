@@ -1,3 +1,4 @@
+// dados das imagens usadas no footer 
 import facebook from '../assets/facebook.png';
 import instagram from '../assets/instagram.png';
 import twitter from '../assets/twitter.png';
