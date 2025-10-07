@@ -1,0 +1,113 @@
+
+.coluna {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.linha {
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linha label {
+  color: #1e3c72;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.linha input,
+.linha select {
+  border: 2px solid #e0e7ff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.linha input:focus,
+.linha select:focus {
+  border-color: #2a5298;
+  box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.1);
+  transform: translateY(-2px);
+}
+
+.linha input::placeholder {
+  color: #aaa;
+}
+
+.groupForm {
+  display: flex;
+  margin: 12px 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.groupForm label {
+  color: #1e3c72;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.groupForm select {
+  border: 2px solid #e0e7ff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  outline: none;
+  background: white;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.groupForm select:focus {
+  border-color: #2a5298;
+  box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn {
+  width: 100%;
+  border: none;
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(39, 59, 118, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(39, 59, 118, 0.4);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+.medicoCadastro, .usuarioCadastro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.seta {
+  border: none;
+  background-color: transparent;
+  img{
+    height: 20px;
+    width: 20px;
+  }
+}
