@@ -1,15 +1,33 @@
 import { db } from "../db.js";
 
-export const getUsers = (_, res) => {
-  const q = "SELECT * FROM medico"; // Opcional: JOIN com endereco se quiser dados completos
+export const buscarCliente = (req, res) => {
+  const { search } = req.query;
 
-  db.query(q, (err, data) => {
-    if (err) return res.json(err);
+  let q = "SELECT * FROM cliente WHERE cpf LIKE ? OR email LIKE ?";
+  const params = [`%${search}%`, `%${search}%`];
 
+  db.query(q, params, (err, data) => {
+    if (err) return res.status(500).json(err);
     return res.status(200).json(data);
   });
 };
-
+export const buscarMedico = (req, res) => {
+  const { search, especialidade } = req.query;
+  let q = "SELECT * FROM medico WHERE 1=1";
+  const params = [];
+  if (search) {
+    q += " AND (crm LIKE ? OR nome LIKE ?)";
+    params.push(`%${search}%`, `%${search}%`);
+  }
+  if (especialidade && especialidade !== "") {
+    q += " AND especialidade = ?";
+    params.push(especialidade);
+  }
+  db.query(q, params, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
 export const addMedico = (req, res) => {
   const {
     nome,

@@ -1,9 +1,15 @@
 import express from "express";
-import { addCliente, addMedico, deleteUser, getUsers, updateUser } from "../controllers/user.js";
+import {  addCliente, 
+  addMedico, 
+  deleteUser, 
+  buscarMedico,
+  buscarCliente,
+  updateUser  } from "../controllers/user.js";
 
 const router = express.Router()
 
-router.get("/", getUsers)
+router.get("/medicos/busca", buscarMedico);
+router.get("/clientes/busca", buscarCliente);
 
 router.post("/medicos", addMedico)
 router.post("/clientes",addCliente)
