@@ -1,5 +1,5 @@
 //header do projeto
-import medCenter from "../../imgs/logoMedCenter.png";
+import medCenter from "../../assets/logoMedCenter.png";
 import style from "./header.module.css";
 
 export const Header = () => {

@@ -15,5 +15,4 @@ export const redeSocial = [
     {name: 'YouTube', img: youtube},
     {name: 'Email', img: email},
     {name: 'WhatsApp', img: whatsapp}
-    
 ]

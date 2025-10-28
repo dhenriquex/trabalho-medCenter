@@ -1,141 +1,194 @@
-.body main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 40px 20px;
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+:root {
+    --primary: #2A4365;
+    --primary-light: #3182CE;
+    --secondary: #48BB78;
+    --secondary-light: #68D391;
+    --background: #F7FAFC;
+    --text: #2D3748;
+    --text-light: #A0AEC0;
+    --white: #FFFFFF;
+    --error: #E53E3E;
+    --success: #38A169;
 }
 
-.pagina {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  max-width: 1200px;
-  min-height: 650px;
-  padding: 0;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+
+.body main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height:750px;
+    background-color: var(--background);
+}
+.cadastre {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+        min-height: 500px;
+    background-color: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.cadastre:hover {
+    transform: translateY(-5px);
+}
+
+.login {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 40px;
+    justify-content: center;
+    background-color: var(--white);
+}
+
+.login h2 {
+    font-size: clamp(32px, 5vw, 50px);
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.login h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 2px;
 }
 
 .info {
-  height: 100%;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  position: relative;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 30px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  z-index: 1;
-  margin-bottom: 20px;
+.inputInfo {
+    position: relative;
+    margin-top: 5px;
 }
 
-.logo h1 {
-  font-size: 50px;
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.inputInfo label {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: var(--text-light);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+.inputInfo:hover{
+    label{
+    transform: translateY(-22px);
+    }
 }
 
-.logo img {
-  width: auto;
-  height: 60px;
-  filter: brightness(0%) invert(1);
-  animation: float 3s ease-in-out infinite;
+.inputInfo input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: var(--text);
+    border: none;
+    border-bottom: 2px solid var(--text-light);
+    outline: none;
+    background: transparent;
+    transition: all 0.3s ease;
 }
 
-.info p {
-  font-size: 1.3em;
-  z-index: 1;
-  opacity: 0.95;
-  text-align: center;
+.inputInfo input:focus,
+.inputInfo input:valid {
+    border-bottom-color: var(--primary);
 }
 
-.gerenciamento {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 50px 40px;
-  overflow-y: auto;
+.inputInfo input:focus ~ label,
+.inputInfo input:valid ~ label {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: var(--primary);
 }
 
-.gerenciamento::-webkit-scrollbar {
-  width: 8px;
+.login button {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(49, 130, 206, 0.2);
 }
 
-.gerenciamento::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+.login button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(49, 130, 206, 0.3);
 }
 
-.gerenciamento::-webkit-scrollbar-thumb {
-  background: #273b76;
-  border-radius: 10px;
+.login button:active {
+    transform: translateY(0);
 }
 
-.gerenciamento::-webkit-scrollbar-thumb:hover {
-  background: #1e3c72;
+.loginText {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    padding: 40px;
+    color: var(--white);
+    text-align: center;
+}
+.loginText h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.loginText p {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 400px;
+}
+@media (max-width: 992px) {
+  .cadastre {
+    max-width: 800px;
+  }
+
+  .login {
+    padding: 30px;
+  }
 }
 
-.gerenciamento h3 {
-  font-size: 35px;
-  color: #1e3c72;
-  margin: 0 0 10px 0;
-  font-weight: 700;
-}
+@media (max-width: 768px) {
+  .cadastre {
+    flex-direction: column-reverse;
+  }
 
-.gerenciamento > p {
-  color: #666;
-  margin-bottom: 25px;
-  font-size: 16px;
-}
+  .loginText {
+    padding: 30px;
+  }
 
-.opcoes {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #f0f4ff;
-  border-radius: 50px;
-  padding: 6px;
-  margin: 10px auto 25px;
-  border: 2px solid #e0e7ff;
-}
+  .login {
+    padding: 30px;
+  }
 
-.opcoes span {
-  padding: 10px 25px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border-radius: 50px;
-  font-weight: 500;
-  color: #273b76;
-}
-
-.opcoes span:hover {
-  background-color: rgba(39, 59, 118, 0.1);
-}
-
-.opcoes span.active {
-  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(39, 59, 118, 0.3);
-  font-weight: 600;
-}
-
-.campos {
-  width: 100%;
-  margin-top: 20px;
-  animation: slideIn 0.4s ease;
+  .info {
+    gap: 20px;
+  }
 }
