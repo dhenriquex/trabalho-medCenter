@@ -5,6 +5,7 @@ import style from "./header.module.css";
 export const Header = () => {
   return (
     <header className={style.header}>
+      <div className={style.container}>
       <div className={style.logo}>
         <img src={medCenter} alt="Logo MedCenter" />
         <h1>MedCenter</h1>
@@ -30,6 +31,7 @@ export const Header = () => {
           </li>
         </ul>
       </nav>
+      </div>
     </header>
   );
 };
