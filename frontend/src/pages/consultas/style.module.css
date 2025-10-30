@@ -1,0 +1,468 @@
+
+.mainContent {
+  flex: 1;
+  max-width: 900px;
+  margin:  auto;
+  width: 100%;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 0;
+}
+
+/* Page Header */
+.pageHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #3b82f6;
+}
+
+.pageSubtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Formulário */
+.schedulingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.formCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.formCard h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #3b82f6;
+}
+
+.formCard h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stepNumber {
+  width: 40px;
+  height: 40px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.stepTitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.stepDescription {
+  color: #666;
+}
+
+/* Seção importante (saúde) - Adapting for health info */
+.healthInfoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  .formInput {
+    width: 90%;
+  }
+}
+
+.healthCard {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.healthCard.active {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 0;
+  padding: 0.5rem 0;
+}
+
+.checkboxLabel input {
+  margin-right: 10px;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #d1d5db;
+  border-radius: 5px;
+  cursor: pointer;
+  accent-color: #3b82f6;
+}
+
+.healthDetails {
+  margin-top: 15px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.healthDetails.show {
+  opacity: 1;
+  max-height: 200px;
+}
+
+.healthDetails textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.6;
+  min-height: 100px;
+}
+
+.healthDetails textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Campos do formulário */
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.formInput[type="date"],
+.formInput[type="time"] {
+  /* Same as above */
+}
+
+.formInput[type="file"] {
+  /* Same as above */
+}
+
+.formInput[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #d1d5db;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0.625rem;
+  vertical-align: middle;
+  accent-color: #3b82f6;
+}
+
+.formInput[type="radio"] {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-right: 0.625rem;
+  cursor: pointer;
+  vertical-align: middle;
+  accent-color: #3b82f6;
+}
+
+/* Radio buttons for priority */
+.priorityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.priorityOption {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.priorityOption:hover {
+  border-color: #3b82f6;
+  background: #f9fafb;
+}
+
+.priorityOption.selected {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.priorityIcon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.priorityName {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.priorityDesc {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Grid duplo (data e horário) */
+.datetimeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px
+}
+
+/* Resumo */
+.summaryCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.summaryTitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.summaryLabel {
+  font-weight: bold;
+  color: #666;
+}
+
+.summaryValue {
+  color: #333;
+}
+
+/* Botões */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
+
+.btnSecondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btnSecondary:hover {
+  background-color: #5a6268;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btnPrimary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.subFormGroup {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 25px;
+  
+  border-radius: 20px;
+ background-color: #f8f8f8;
+ overflow: hidden;
+ flex-wrap: wrap;
+ .formInput{
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Small text */
+small {
+  display: block;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.avisoUrgente {
+  color: #d97706;
+  font-weight: 500;
+}
+
+.avisoEmergencia {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Mensagens de erro */
+.erro {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1rem 0.75rem;
+    margin: 20px auto;
+  }
+
+  .formCard {
+    padding: 1.75rem 1.25rem;
+    border-radius: 8px;
+  }
+
+  .formCard h2 {
+    font-size: 1.65rem;
+  }
+
+  .healthCard {
+    padding: 1.25rem;
+  }
+
+  .datetimeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .priorityGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .formCard {
+    padding: 1.5rem 1rem;
+  }
+
+  .formCard h2 {
+    font-size: 1.5rem;
+  }
+
+  .healthCard {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+  }
+}

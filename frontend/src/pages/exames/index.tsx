@@ -236,7 +236,8 @@ export const Exames = () => {
                       <label className={style.formLabel}>
                         Especialidade do medico
                       </label>
-                      <select className={style.formInput}
+                      <select
+                        className={style.formInput}
                         name="especialidade"
                         value={formData.especialidade}
                         onChange={handleChange}
@@ -244,8 +245,13 @@ export const Exames = () => {
                         <option value="">Selecione a especialidade</option>
                         <option value="Cardiologista">Cardiologista</option>
                         <option value="Dermatologista">Dermatologista</option>
-                        <option value="Endocrinologista"> Endocrinologista</option>
-                        <option value="Gastroenterologista">Gastroenterologista</option>
+                        <option value="Endocrinologista">
+                          {" "}
+                          Endocrinologista
+                        </option>
+                        <option value="Gastroenterologista">
+                          Gastroenterologista
+                        </option>
                         <option value="Neurologista">Neurologista</option>
                         <option value="Oftalmologista">Oftalmologista</option>
                         <option value="Ortopedista">Ortopedista</option>
@@ -266,8 +272,6 @@ export const Exames = () => {
                         className={style.formInput}
                       />
                     </div>
-                    
-
                   </div>
                 )}
               </div>
