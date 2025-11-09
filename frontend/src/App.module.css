@@ -83,18 +83,10 @@
 }
 
 .inputInfo label {
-    position: absolute;
-    left: 0;
-    top: 10px;
     color: var(--text-light);
     font-size: 16px;
     transition: all 0.3s ease;
     pointer-events: none;
-}
-.inputInfo:hover{
-    label{
-    transform: translateY(-22px);
-    }
 }
 
 .inputInfo input {

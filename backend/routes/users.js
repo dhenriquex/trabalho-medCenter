@@ -4,13 +4,15 @@ import {  addCliente,
   deleteUser, 
   buscarMedico,
   buscarCliente,
-  updateUser  } from "../controllers/user.js";
+  updateUser ,
+  login
+ } from "../controllers/user.js";
 
 const router = express.Router()
 
 router.get("/medicos/busca", buscarMedico);
 router.get("/clientes/busca", buscarCliente);
-
+router.post("/login", login);
 router.post("/medicos", addMedico)
 router.post("/clientes",addCliente)
 

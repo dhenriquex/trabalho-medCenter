@@ -11,6 +11,80 @@ export const buscarCliente = (req, res) => {
     return res.status(200).json(data);
   });
 };
+export const login = async (req, res) => {
+  const { search, password } = req.body;
+
+  if (!search || !password) {
+    return res.status(400).json({ error: "CPF/Email e senha são obrigatórios" });
+  }
+
+  const queryCliente = "SELECT * FROM cliente WHERE cpf = ? OR email = ?";
+  const queryMedico = "SELECT * FROM medico WHERE crm = ? OR email = ?";
+
+  try {
+    // Busca no banco de clientes
+    db.query(queryCliente, [search, search], async (err, clienteData) => {
+      if (err) {
+        console.error("Erro DB cliente:", err);
+        return res.status(500).json({ error: "Erro no banco de dados" });
+      }
+
+      if (clienteData.length > 0) {
+        const cliente = clienteData[0];
+        
+  
+        const senhaCorreta = password === cliente.senha;
+
+        if (!senhaCorreta) {
+          return res.status(401).json({ error: "Senha incorreta" });
+        }
+
+        return res.status(200).json({
+          message: "Login bem-sucedido",
+          user: {
+            id: cliente.id,
+            nome: cliente.nome,
+            cpf: cliente.cpf,
+            tipo: "cliente"
+          }
+        });
+      }
+
+      // Busca no banco de médicos
+      db.query(queryMedico, [search, search], async (err, medicoData) => {
+        if (err) {
+          console.error("Erro DB médico:", err);
+          return res.status(500).json({ error: "Erro no banco de dados" });
+        }
+
+        if (medicoData.length === 0) {
+          return res.status(404).json({ error: "Usuário não encontrado" });
+        }
+
+        const medico = medicoData[0];
+        const senhaCorreta = password === medico.senha;
+
+        if (!senhaCorreta) {
+          return res.status(401).json({ error: "Senha incorreta" });
+        }
+
+        return res.status(200).json({
+          message: "Login bem-sucedido",
+          user: {
+            id: medico.id,
+            nome: medico.nome,
+            crm: medico.crm,
+            tipo: "medico"
+          }
+        });
+      });
+    });
+
+  } catch (error) {
+    console.error("Erro no login:", error);
+    return res.status(500).json({ error: "Erro interno no servidor" });
+  }
+};
 export const buscarMedico = (req, res) => {
   const { search, especialidade } = req.query;
   let q = "SELECT * FROM medico WHERE 1=1";
@@ -108,7 +182,7 @@ export const addMedico = (req, res) => {
       dataDeNasc, // formata como YYYY-MM-DD
       dataContratacao, // formata como YYYY-MM-DD
       enderecoId,
-      senha, // ⚠️ Em produção: usar bcrypt
+      senha, // Em produção: usar bcrypt
     ];
 
     db.query(qMedico, valuesMedico, (errMedico, resultMedico) => {
