@@ -40,8 +40,10 @@ const updatedExames: Exame[] = exames.map((exame) => ({
   value: exame.nome.toLowerCase().replace(/\s+/g, "-"),
   codigo: exame.id.toString(),
 }));
-
-export const Exames = () => {
+interface ExamesProps {
+  onNavigate?: (page: string) => void;
+}
+export const Exames: React.FC<ExamesProps> = ({ onNavigate })=> {
   const [formData, setFormData] = useState<FormData>({
     tipo: "",
     data: "",

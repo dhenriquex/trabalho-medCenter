@@ -341,3 +341,13 @@
     justify-content: center;
   }
 }
+.logout {
+  position: absolute;
+  top : 30px;
+  right: 600px;
+  padding: 8px 15px;
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 50px;
+  border: none;
+}

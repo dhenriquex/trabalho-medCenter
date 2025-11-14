@@ -1,10 +1,41 @@
 import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import { iconesOperacoes } from "../../data/operacoes";
-import hopital from "./assets/hospital.webp";
+import hopital from "../../assets/hospital.webp";
 import style from "./style.module.css";
 
-const Home = () => {
+interface HomeProps {
+  onLogout?: () => void;
+  onNavigate?: (page: string) => void;
+}
+
+const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
+  const handleServicoClick = (nomeServico: string) => {
+    const servicoNormalizado = nomeServico.toLowerCase();
+    
+    if (servicoNormalizado.includes("exame")) {
+      if (onNavigate) {
+        onNavigate("exames");
+      } else {
+        window.location.href = "/exames";
+      }
+    } else if (servicoNormalizado.includes("consulta")) {
+      if (onNavigate) {
+        onNavigate("consultas");
+      } else {
+        window.location.href = "/consultas";
+      }
+    }
+  };
+
+  const handleAgendarClick = () => {
+    if (onNavigate) {
+      onNavigate("consultas");
+    } else {
+      window.location.href = "/consultas";
+    }
+  };
+
   return (
     <div className={style.wrapper}>
       <Header />
@@ -20,7 +51,19 @@ const Home = () => {
                 <div
                   key={item.nome}
                   className={style.servico}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  style={{ 
+                    animationDelay: `${index * 0.1}s`,
+                    cursor: 'pointer' 
+                  }}
+                  onClick={() => handleServicoClick(item.value)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleServicoClick(item.value);
+                    }
+                  }}
                 >
                   <div className={style.iconWrapper}>
                     <img src={item.img} alt={item.nome} />
@@ -39,7 +82,10 @@ const Home = () => {
             <div className={style.imgInfo}>
               <h2>Agende sua consulta</h2>
               <p>Atendimento rápido e humanizado para você e sua família</p>
-              <button className={style.agendarBtn}>
+              <button 
+                className={style.agendarBtn}
+                onClick={handleAgendarClick}
+              >
                 <span>Agendar Agora</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path
@@ -74,6 +120,11 @@ const Home = () => {
         </section>
       </main>
       <Footer />
+      {onLogout && (
+        <button onClick={onLogout} className={style.logout}>
+          Logout
+        </button>
+      )}
     </div>
   );
 };

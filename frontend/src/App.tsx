@@ -1,21 +1,85 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./App.module.css";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
+import Home from "./pages/homeCliente";
+import DashboardMedico from "./pages/homeMedico";
+import Consultas from "./pages/consultas";
+import Exames from "./pages/exames"; // Você precisa criar esta página
 
 export const App = () => {
   const [formData, setFormData] = useState({ search: "", password: "" });
   const [error, setError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userType, setUserType] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState("login");
 
-  const handleChange = (e: any) => {
+  // Verificar se já está logado ao carregar
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userStr = localStorage.getItem("user");
+    const savedPage = localStorage.getItem("currentPage");
+    
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        if (user.tipo) {
+          console.log("Usuário encontrado:", user.tipo);
+          setIsLoggedIn(true);
+          setUserType(user.tipo);
+          // Restaurar a página atual se existir
+          if (savedPage) {
+            setCurrentPage(savedPage);
+          } else {
+            setCurrentPage(user.tipo === "cliente" ? "home" : "dashboard");
+          }
+        }
+      } catch (err) {
+        console.error("Erro ao parsear usuário:", err);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("currentPage");
+      }
+    }
+    setIsLoading(false);
+  }, []);
+
+  // Listener para mudanças na URL
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === "/consultas") {
+        setCurrentPage("consultas");
+      } else if (path === "/exames") {
+        setCurrentPage("exames");
+      } else if (path === "/" && isLoggedIn) {
+        setCurrentPage(userType === "cliente" ? "home" : "dashboard");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [isLoggedIn, userType]);
+
+  // Função para navegar entre páginas
+  const navigateTo = (page: string) => {
+    setCurrentPage(page);
+    localStorage.setItem("currentPage", page);
+    
+    // Atualizar a URL sem recarregar a página
+    const path = page === "home" || page === "dashboard" ? "/" : `/${page}`;
+    window.history.pushState({}, "", path);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
-    // Basic validation
     if (!formData.search || !formData.password) {
       setError("Preencha todos os campos.");
       return;
@@ -28,18 +92,76 @@ export const App = () => {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        const data = await response.json();
-        alert("Login bem-sucedido!");
+        console.log("Login bem-sucedido:", data);
+        
+        // Salvar no localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        
+        // Atualizar estado
+        setIsLoggedIn(true);
+        setUserType(data.user.tipo);
+        
+        // Navegar para a página apropriada
+        const page = data.user.tipo === "cliente" ? "home" : "dashboard";
+        navigateTo(page);
+        
+        console.log("Estado atualizado para:", data.user.tipo);
       } else {
-        const errorData = await response.json();
-        setError(errorData.error || "Erro no login.");
+        setError(data.error || "Erro no login.");
       }
     } catch (err) {
-      setError("Erro de conexão.");
+      console.error("Erro na requisição:", err);
+      setError("Erro de conexão com o servidor.");
     }
   };
 
+  const handleLogout = () => {
+    console.log("Fazendo logout...");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("currentPage");
+    setIsLoggedIn(false);
+    setUserType("");
+    setCurrentPage("login");
+    setFormData({ search: "", password: "" });
+    window.history.pushState({}, "", "/");
+  };
+
+  // Loading inicial
+  if (isLoading) {
+    return <div style={{ 
+      display: "flex", 
+      justifyContent: "center", 
+      alignItems: "center", 
+      height: "100vh" 
+    }}>
+      Carregando...
+    </div>;
+  }
+
+  // Sistema de rotas baseado no estado
+  if (isLoggedIn) {
+    // Rotas para cliente
+    if (userType === "cliente") {
+      switch (currentPage) {
+        case "consultas":
+          return <Consultas onNavigate={navigateTo} />;
+        case "exames":
+          return <Exames onNavigate={navigateTo} />;
+        case "home":
+        default:
+          return <Home onLogout={handleLogout} onNavigate={navigateTo} />;
+      }
+    }
+    
+  }
+
+  // Renderizar página de login
+  console.log("Renderizando página de Login");
   return (
     <div className={style.body}>
       <Header />
@@ -56,6 +178,7 @@ export const App = () => {
                     name="search"
                     value={formData.search}
                     onChange={handleChange}
+                    placeholder="Digite seu CPF ou CRM"
                     required
                   />
                 </div>
@@ -66,15 +189,24 @@ export const App = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
+                    placeholder="Digite sua senha"
                     required
                   />
                 </div>
               </div>
-              {error && <p style={{ color: "red" }}>{error}</p>}
+              {error && (
+                <p style={{ 
+                  color: "red", 
+                  marginTop: "10px",
+                  fontSize: "14px" 
+                }}>
+                  {error}
+                </p>
+              )}
               <button type="submit">Login</button>
             </form>
             <p>
-              <a href="">Esqueceu a senha?</a> {/* Add link if needed */}
+              <a href="#">Esqueceu a senha?</a>
             </p>
           </div>
           <div className={style.loginText}>

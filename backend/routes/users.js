@@ -1,23 +1,29 @@
 import express from "express";
-import {  addCliente, 
+import {  
+  addCliente, 
   addMedico, 
   deleteUser, 
   buscarMedico,
   buscarCliente,
-  updateUser ,
-  login
- } from "../controllers/user.js";
+  updateUser,
+  login,
+  exames,
+  consultas
+} from "../controllers/user.js";
 
-const router = express.Router()
+const router = express.Router();
 
+router.post("/login", login);
 router.get("/medicos/busca", buscarMedico);
 router.get("/clientes/busca", buscarCliente);
-router.post("/login", login);
-router.post("/medicos", addMedico)
-router.post("/clientes",addCliente)
+router.get("/exames", exames);
+router.get("/consultas", consultas);
 
-router.put("/:id", updateUser)
+router.post("/medicos", addMedico);
+router.post("/clientes", addCliente);
 
-router.delete("/:id", deleteUser)
+router.put("/:id", updateUser);
 
-export default router
+router.delete("/:id", deleteUser);
+
+export default router;

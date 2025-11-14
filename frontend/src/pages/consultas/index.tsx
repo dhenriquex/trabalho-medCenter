@@ -2,11 +2,12 @@ import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import style from "./style.module.css";
 import { useState } from "react";
-import {
-  horarios,
-  locais,
-} from "../../data/exames";
-import { especializacoes, horariosConsulta, horariosIndisponiveisConsulta } from "../../data/consulta";
+import { locais } from "../../data/exames";
+import { 
+  especializacoes, 
+  horariosConsulta, 
+  horariosIndisponiveisConsulta 
+} from "../../data/consulta";
 
 interface Consulta {
   id: number;
@@ -30,13 +31,17 @@ interface FormData {
   arquivo?: File;
 }
 
+interface ConsultasProps {
+  onNavigate?: (page: string) => void;
+}
+
 const updatedConsultas: Consulta[] = especializacoes.map((especialidade) => ({
   ...especialidade,
   value: especialidade.tipo.toLowerCase().replace(/\s+/g, "-"),
   codigo: especialidade.id.toString(),
 }));
 
-export const Consultas = () => {
+export const Consultas: React.FC<ConsultasProps> = ({ onNavigate }) => {
   const [formData, setFormData] = useState<FormData>({
     tipo: "",
     data: "",
@@ -71,9 +76,13 @@ export const Consultas = () => {
     alert("Consulta agendada com sucesso!");
   };
 
-  const consultaSelecionada = updatedConsultas.find(
-    (especialidade: Consulta) => especialidade.value === formData.tipo
-  );
+  const handleVoltar = () => {
+    if (onNavigate) {
+      onNavigate("home");
+    } else {
+      window.history.back();
+    }
+  };
 
   return (
     <div className={style.body}>
@@ -164,6 +173,8 @@ export const Consultas = () => {
                 </div>
               </div>
             </div>
+
+            {/* Local */}
             <div className={style.formCard}>
               <div className={style.stepHeader}>
                 <div className={style.stepNumber}>3</div>
@@ -193,10 +204,10 @@ export const Consultas = () => {
               </div>
             </div>
 
-           
+            {/* Prioridade */}
             <div className={style.formCard}>
               <div className={style.stepHeader}>
-                <div className={style.stepNumber}>5</div>
+                <div className={style.stepNumber}>4</div>
                 <div>
                   <h2 className={style.stepTitle}>Prioridade da Consulta</h2>
                 </div>
@@ -219,9 +230,10 @@ export const Consultas = () => {
               </div>
             </div>
 
+            {/* Observações */}
             <div className={style.formCard}>
               <div className={style.stepHeader}>
-                <div className={style.stepNumber}>6</div>
+                <div className={style.stepNumber}>5</div>
                 <div>
                   <h2 className={style.stepTitle}>Observações (opcional)</h2>
                 </div>
@@ -244,6 +256,7 @@ export const Consultas = () => {
               <button
                 type="button"
                 className={`${style.btn} ${style.btnSecondary}`}
+                onClick={handleVoltar}
               >
                 Voltar
               </button>

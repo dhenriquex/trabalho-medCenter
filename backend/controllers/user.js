@@ -1,4 +1,5 @@
 import { db } from "../db.js";
+import jwt from "jsonwebtoken";
 
 export const buscarCliente = (req, res) => {
   const { search } = req.query;
@@ -11,80 +12,68 @@ export const buscarCliente = (req, res) => {
     return res.status(200).json(data);
   });
 };
-export const login = async (req, res) => {
+export const login = (req, res) => {
   const { search, password } = req.body;
 
-  if (!search || !password) {
-    return res.status(400).json({ error: "CPF/Email e senha são obrigatórios" });
-  }
 
-  const queryCliente = "SELECT * FROM cliente WHERE cpf = ? OR email = ?";
-  const queryMedico = "SELECT * FROM medico WHERE crm = ? OR email = ?";
-
-  try {
-    // Busca no banco de clientes
-    db.query(queryCliente, [search, search], async (err, clienteData) => {
-      if (err) {
-        console.error("Erro DB cliente:", err);
-        return res.status(500).json({ error: "Erro no banco de dados" });
-      }
-
-      if (clienteData.length > 0) {
-        const cliente = clienteData[0];
-        
+  const isCPF = search.length === 11 || search.replace(/\D/g, '').length === 11;
   
-        const senhaCorreta = password === cliente.senha;
-
-        if (!senhaCorreta) {
-          return res.status(401).json({ error: "Senha incorreta" });
-        }
-
-        return res.status(200).json({
-          message: "Login bem-sucedido",
-          user: {
-            id: cliente.id,
-            nome: cliente.nome,
-            cpf: cliente.cpf,
-            tipo: "cliente"
-          }
-        });
-      }
-
-      // Busca no banco de médicos
-      db.query(queryMedico, [search, search], async (err, medicoData) => {
-        if (err) {
-          console.error("Erro DB médico:", err);
-          return res.status(500).json({ error: "Erro no banco de dados" });
-        }
-
-        if (medicoData.length === 0) {
-          return res.status(404).json({ error: "Usuário não encontrado" });
-        }
-
-        const medico = medicoData[0];
-        const senhaCorreta = password === medico.senha;
-
-        if (!senhaCorreta) {
-          return res.status(401).json({ error: "Senha incorreta" });
-        }
-
-        return res.status(200).json({
-          message: "Login bem-sucedido",
-          user: {
-            id: medico.id,
-            nome: medico.nome,
-            crm: medico.crm,
-            tipo: "medico"
-          }
-        });
-      });
-    });
-
-  } catch (error) {
-    console.error("Erro no login:", error);
-    return res.status(500).json({ error: "Erro interno no servidor" });
+  let query;
+  let params;
+  
+  if (isCPF) {
+    // Buscar cliente por CPF
+    query = "SELECT * FROM cliente WHERE cpf = ?";
+    params = [search.replace(/\D/g, '')];
+  } else {
+    // Buscar médico por CRM
+    query = "SELECT * FROM medico WHERE crm = ?";
+    params = [search];
   }
+
+  db.query(query, params, (err, data) => {
+    if (err) {
+      console.error("Erro na query:", err);
+      return res.status(500).json({ error: "Erro no servidor" });
+    }
+
+    if (data.length === 0) {
+      return res.status(404).json({ error: "Usuário não encontrado" });
+    }
+
+    const user = data[0];
+
+    // Verificar senha diretamente (sem criptografia)
+    if (password !== user.senha) {
+      return res.status(401).json({ error: "Senha incorreta" });
+    }
+
+    // Gerar token JWT
+    const token = jwt.sign(
+      { 
+        id: user.id, 
+        tipo: isCPF ? 'cliente' : 'medico',
+        nome: user.nome 
+      },
+      "medicenter_secret_key_2024",
+      { expiresIn: "24h" }
+    );
+
+    // Remover senha antes de enviar
+    delete user.senha;
+
+    res.json({
+      success: true,
+      token,
+      user: {
+        ...user,
+        tipo: isCPF ? 'cliente' : 'medico'
+      }
+    });
+  });
 };
+
+
 export const buscarMedico = (req, res) => {
   const { search, especialidade } = req.query;
   let q = "SELECT * FROM medico WHERE 1=1";
@@ -304,6 +293,51 @@ export const addCliente = (req, res) => {
   });
 };
 
+export const addExame = (req, res) => {
+  const {
+    tipo,
+    dataSolicitacao,
+    horario,
+    dataEmissao,
+    dataRequerimento,
+    valor,
+    duracao,
+    resultado,
+    prioridade,
+    observacoes,
+    possuiDoencaCronica,
+    doencasCronicas,
+    possuiAlergias,
+    alergias,
+    indicacaoMedica,
+    nomeMedico,
+    arquivo,
+    especialidadeMedica,
+  } = req.body;
+  if (
+    !tipo ||
+    !dataSolicitacao ||
+    !horario ||
+    !dataEmissao ||
+    !dataRequerimento ||
+    !valor ||
+    !duracao ||
+    !prioridade ||
+    !indicacaoMedica ||
+    !nomeMedico ||
+    !especialidadeMedica
+  ) {
+    return res
+      .status(400)
+      .json("Todos os campos obrigatórios devem ser preenchidos.");
+  }
+};
+export const exames = ()=>(req, res) => {
+
+}
+export const consultas = ()=>(req, res) => {
+
+}
 export const updateUser = (req, res) => {
   // Implemente depois se precisar (ex: UPDATE com JOIN se alterar endereço)
 };
