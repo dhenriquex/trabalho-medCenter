@@ -1,8 +1,14 @@
 //header do projeto
 import medCenter from "../../assets/logoMedCenter.png";
 import style from "./header.module.css";
+import perfil from "../../assets/perfil.png";
+ interface HeaderProps {
+  username?: string;
+  medico?: boolean;
+  onClick?: () => void;  
+}
 
-export const Header = () => {
+export const Header = ({username, medico, onClick}:HeaderProps) => {
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -10,6 +16,7 @@ export const Header = () => {
         <img src={medCenter} alt="Logo MedCenter" />
         <h1>MedCenter</h1>
       </div>
+      {medico ? null :
       <nav>
         <ul className={style.info}>
           <li>
@@ -31,6 +38,12 @@ export const Header = () => {
           </li>
         </ul>
       </nav>
+ }
+      <div className={style.perfil} onClick={onClick}
+      style={{ cursor: onClick ? 'pointer' : 'default' }}>
+        <img src={perfil} alt="" />
+        <h3>{username}</h3>
+      </div>
       </div>
     </header>
   );

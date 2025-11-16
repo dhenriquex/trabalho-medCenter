@@ -14,7 +14,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 80px 40px;
   align-items: end;
@@ -62,8 +62,8 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08);
   cursor: pointer;
+  transition: all 0.3s ease;
 }
-
 
 .servico:hover {
   border-color: #3b82f6;
@@ -82,7 +82,6 @@
   border-radius: 12px;
   flex-shrink: 0;
 }
-
 
 .iconWrapper img {
   width: 32px;
@@ -201,26 +200,312 @@
   transform: translateX(4px);
 }
 
+/* ============================================ */
+/* SEÇÃO DIFERENCIAIS */
+/* ============================================ */
+
+.diferenciaisSection {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.diferenciaisHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.diferenciaisHeader h2 {
+  font-size: 2.5rem;
+  color: #1e3a8a;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.diferenciaisHeader p {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.diferenciaisGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.diferencial {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08);
+  border: 2px solid transparent;
+}
+
+.diferencial:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+}
+
+.diferencialIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.diferencial:hover .diferencialIcon {
+  transform: scale(1.1) rotate(5deg);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.diferencialIcon svg {
+  color: white;
+  fill: white;
+}
+
+.diferencial h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.diferencial p {
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* ============================================ */
+/* SEÇÃO DE NÚMEROS/ESTATÍSTICAS */
+/* ============================================ */
+
+.numerosSection {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  color: white;
+}
+
+.numerosContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.numero {
+  text-align: center;
+  padding: 40px 30px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.numero:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.numeroValor {
+  display: block;
+  font-size: 3.8rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1;
+}
+
+.numeroLabel {
+  display: block;
+  font-size: 1.15rem;
+  opacity: 0.95;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================ */
+/* SEÇÃO DE HORÁRIOS */
+/* ============================================ */
+
+.horariosSection {
+  padding: 80px 40px;
+  background: white;
+}
+
+.horariosContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.horariosInfo h2 {
+  font-size: 2.5rem;
+  color: #1e3a8a;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.horariosList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.horarioItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 28px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.horarioItem:hover {
+  border-color: #3b82f6;
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 197, 253, 0.05) 100%);
+}
+
+.horarioDia {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.horarioHora {
+  font-size: 1.1rem;
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.horarioDestaque {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 25px 28px;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-radius: 12px;
+  margin-top: 10px;
+  border: 2px solid #3b82f6;
+  transition: all 0.3s ease;
+}
+
+.horarioDestaque:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.horarioDestaque svg {
+  color: #1e40af;
+  flex-shrink: 0;
+}
+
+.horarioDestaque span {
+  font-size: 1.05rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.horariosImagem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horariosCard {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  padding: 50px 40px;
+  border-radius: 20px;
+  color: white;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.3);
+  transition: all 0.3s ease;
+}
+
+.horariosCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(30, 58, 138, 0.4);
+}
+
+.horariosCard h3 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contatoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contatoInfo p {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.05rem;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  line-height: 1.4;
+}
+
+.contatoInfo p:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contatoInfo svg {
+  flex-shrink: 0;
+}
+
 /* Seção do Mapa */
 .mapaSection {
   width: 100%;
+  padding: 80px 0 0;
 }
 
 .mapaHeader {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   padding: 0 40px;
 }
 
 .mapaHeader h2 {
   font-size: 2.5rem;
   color: #1e3a8a;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   font-weight: 700;
 }
 
 .mapaHeader p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #64748b;
 }
 
@@ -235,7 +520,37 @@
   display: block;
 }
 
-/* Responsividade */
+/* Botão Logout */
+.logout {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  padding: 10px 24px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  z-index: 1000;
+}
+
+.logout:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.logout:active {
+  transform: translateY(0);
+}
+
+/* ============================================ */
+/* RESPONSIVIDADE */
+/* ============================================ */
+
 @media (max-width: 1024px) {
   .conteudo {
     grid-template-columns: 1fr;
@@ -244,110 +559,40 @@
   }
 
   .servicosHeader h1,
-  .mapaHeader h2 {
+  .mapaHeader h2,
+  .diferenciaisHeader h2,
+  .horariosInfo h2 {
     font-size: 2rem;
   }
 
   .imgInfo h2 {
     font-size: 1.8rem;
   }
-}
 
-@media (max-width: 768px) {
-  .conteudo {
-    padding: 40px 20px;
-    gap: 40px;
+  .diferenciaisSection,
+  .numerosSection,
+  .horariosSection {
+    padding: 60px 30px;
   }
 
-  .servicosHeader h1,
-  .mapaHeader h2 {
-    font-size: 1.8rem;
+  .diferenciaisGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
   }
 
-  .servicosHeader p,
-  .mapaHeader p {
-    font-size: 1rem;
+  .numerosContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
   }
 
-  .servico {
-    padding: 16px 20px;
+  .horariosContainer {
+    grid-template-columns: 1fr;
+    gap: 50px;
   }
 
-  .iconWrapper {
-    width: 50px;
-    height: 50px;
-  }
-
-  .iconWrapper img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .servico h3 {
-    font-size: 1rem;
-  }
-
-  .imgInfo {
-    bottom: 30px;
-    left: 20px;
-    right: 20px;
-  }
-
-  .imgInfo h2 {
-    font-size: 1.5rem;
-  }
-
-  .imgInfo p {
-    font-size: 0.95rem;
-  }
-
-  .agendarBtn {
-    padding: 14px 28px;
-    font-size: 1rem;
-  }
-
-  .mapaSection {
-    padding: 60px 0;
-  }
-
-  .mapaHeader {
-    padding: 0 20px;
-  }
-
-  .mapaWrapper iframe {
-    height: 350px;
+  .horariosCard {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  .servicosHeader h1,
-  .mapaHeader h2 {
-    font-size: 1.5rem;
-  }
 
-  .imgInfo h2 {
-    font-size: 1.3rem;
-  }
-
-  .imgInfo p {
-    font-size: 0.9rem;
-    margin-bottom: 16px;
-  }
-
-  .agendarBtn {
-    padding: 12px 24px;
-    font-size: 0.95rem;
-    width: 100%;
-    justify-content: center;
-  }
-}
-.logout {
-  position: absolute;
-  top : 30px;
-  right: 600px;
-  padding: 8px 15px;
-  background-color: #ff4d4f;
-  color: white;
-  border-radius: 50px;
-  border: none;
-}

@@ -10,9 +10,10 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   const handleServicoClick = (nomeServico: string) => {
-    const servicoNormalizado = nomeServico.toLowerCase();
-    
+  const servicoNormalizado = nomeServico.toLowerCase();
+
     if (servicoNormalizado.includes("exame")) {
       if (onNavigate) {
         onNavigate("exames");
@@ -27,6 +28,13 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
       }
     }
   };
+  const handleHeaderClick = () => {
+    if (onNavigate) {
+      onNavigate('perfil'); // Assumindo que 'perfil' é a chave para a rota do perfil
+    } else {
+      window.location.href = '/perfil'; // Fallback
+    }
+  };
 
   const handleAgendarClick = () => {
     if (onNavigate) {
@@ -38,7 +46,7 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
 
   return (
     <div className={style.wrapper}>
-      <Header />
+      <Header username={user.nome} onClick={handleHeaderClick} />
       <main className={style.main}>
         <div className={style.conteudo}>
           <section className={style.servicos}>
@@ -51,15 +59,15 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
                 <div
                   key={item.nome}
                   className={style.servico}
-                  style={{ 
+                  style={{
                     animationDelay: `${index * 0.1}s`,
-                    cursor: 'pointer' 
+                    cursor: "pointer",
                   }}
                   onClick={() => handleServicoClick(item.value)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
                       handleServicoClick(item.value);
                     }
@@ -82,10 +90,7 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
             <div className={style.imgInfo}>
               <h2>Agende sua consulta</h2>
               <p>Atendimento rápido e humanizado para você e sua família</p>
-              <button 
-                className={style.agendarBtn}
-                onClick={handleAgendarClick}
-              >
+              <button className={style.agendarBtn} onClick={handleAgendarClick}>
                 <span>Agendar Agora</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path
@@ -100,6 +105,51 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
             </div>
           </section>
         </div>
+
+        {/* Nova Seção: Diferenciais */}
+        <section className={style.diferenciaisSection}>
+          <div className={style.diferenciaisHeader}>
+            <h2>Por que nos escolher?</h2>
+            <p>Comprometidos com a sua saúde e bem-estar</p>
+          </div>
+          <div className={style.diferenciaisGrid}>
+            <div className={style.diferencial}>
+              <div className={style.diferencialIcon}></div>
+              <h3>Equipe Qualificada</h3>
+              <p>
+                Profissionais experientes e capacitados para oferecer o melhor
+                atendimento
+              </p>
+            </div>
+            <div className={style.diferencial}>
+              <div className={style.diferencialIcon}></div>
+              <h3>Atendimento 24h</h3>
+              <p>
+                Emergências atendidas a qualquer hora, todos os dias da semana
+              </p>
+            </div>
+            <div className={style.diferencial}>
+              <div className={style.diferencialIcon}></div>
+              <h3>Tecnologia Avançada</h3>
+              <p>
+                Equipamentos modernos para diagnósticos precisos e tratamentos
+                eficazes
+              </p>
+            </div>
+            <div className={style.diferencial}>
+              <div className={style.diferencialIcon}>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                ></svg>
+              </div>
+              <h3>Atendimento Humanizado</h3>
+              <p>Cuidado personalizado e acolhedor para cada paciente</p>
+            </div>
+          </div>
+        </section>
 
         <section className={style.mapaSection}>
           <div className={style.mapaHeader}>

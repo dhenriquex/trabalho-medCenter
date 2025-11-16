@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import style from "./App.module.css";
-import { Header } from "./components/header";
+
 import { Footer } from "./components/footer";
 import Home from "./pages/homeCliente";
 import DashboardMedico from "./pages/homeMedico";
@@ -158,13 +158,16 @@ export const App = () => {
       }
     }
     
+    // Rotas para médico
+    if (userType === "medico") {
+      return <DashboardMedico onLogout={handleLogout} onNavigate={navigateTo} />;
+    }
   }
 
   // Renderizar página de login
   console.log("Renderizando página de Login");
   return (
     <div className={style.body}>
-      <Header />
       <main>
         <div className={style.cadastre}>
           <div className={style.login}>

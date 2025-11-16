@@ -11,9 +11,9 @@
 }
 .container{
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     display: flex;
-
+    justify-content: space-between;
     align-items: center;
     margin: 0 auto;
 }
@@ -76,6 +76,18 @@
   align-self: auto;
   a {
     color: white;
+  }
+}
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  img {
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.15);
   }
 }
 
