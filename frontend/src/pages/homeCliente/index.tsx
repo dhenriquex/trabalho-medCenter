@@ -3,6 +3,7 @@ import { Footer } from "../../components/footer";
 import { iconesOperacoes } from "../../data/operacoes";
 import hopital from "../../assets/hospital.webp";
 import style from "./style.module.css";
+import { useNavigate } from 'react-router-dom';  
 
 interface HomeProps {
   onLogout?: () => void;
@@ -29,12 +30,13 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
     }
   };
   const handleHeaderClick = () => {
-    if (onNavigate) {
-      onNavigate('perfil'); // Assumindo que 'perfil' é a chave para a rota do perfil
-    } else {
-      window.location.href = '/perfil'; // Fallback
-    }
-  };
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/login';  // Redireciona para login se não autenticado
+    return;
+  }
+  window.location.href = '/perfil';  // Redirecionamento direto e seguro (caminho absoluto)
+};
 
   const handleAgendarClick = () => {
     if (onNavigate) {
@@ -105,8 +107,6 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
             </div>
           </section>
         </div>
-
-        {/* Nova Seção: Diferenciais */}
         <section className={style.diferenciaisSection}>
           <div className={style.diferenciaisHeader}>
             <h2>Por que nos escolher?</h2>

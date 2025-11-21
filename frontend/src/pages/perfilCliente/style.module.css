@@ -579,3 +579,16 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.logout {
+  border: none;
+  background-color: #ef4444;
+  color: white;
+  padding: 10px 20px;
+  font-size: 30px;
+  margin: 0 auto 50px auto;
+   border-radius: 8px; /* Cantos arredondados para um visual mais suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
+  font-family: 'Arial', sans-serif; /* Fonte mais limpa (pode trocar por uma Google Font se quiser) */
+  cursor: pointer; /* Cursor de mão ao passar o mouse */
+  transition: all 0.3s ease; /* Transição suave para mudanças */
+}

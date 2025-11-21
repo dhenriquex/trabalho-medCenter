@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import style from "./App.module.css";
 
 import { Footer } from "./components/footer";
-import Home from "./pages/homeCliente";
+import { PerfilCliente } from "./pages/perfilCliente";
 import DashboardMedico from "./pages/homeMedico";
 import Consultas from "./pages/consultas";
 import Exames from "./pages/exames"; // Você precisa criar esta página
@@ -53,6 +53,8 @@ export const App = () => {
         setCurrentPage("consultas");
       } else if (path === "/exames") {
         setCurrentPage("exames");
+      } else if (path === "/dashboard") {  // **ALTERAÇÃO: Adicionei verificação para "/dashboard"**
+        setCurrentPage("dashboard");
       } else if (path === "/" && isLoggedIn) {
         setCurrentPage(userType === "cliente" ? "home" : "dashboard");
       }
@@ -67,8 +69,15 @@ export const App = () => {
     setCurrentPage(page);
     localStorage.setItem("currentPage", page);
     
-    // Atualizar a URL sem recarregar a página
-    const path = page === "home" || page === "dashboard" ? "/" : `/${page}`;
+    // **ALTERAÇÃO: Diferencie a URL com base no userType**
+    let path;
+    if (page === "home" && userType === "cliente") {
+      path = "/perfil-clientes";  // Para clientes
+    } else if (page === "dashboard" && userType === "medico") {
+      path = "/dashboard";  // Para médicos
+    } else {
+      path = `/${page}`;  // Para outras páginas (consultas, exames, etc.)
+    }
     window.history.pushState({}, "", path);
   };
 
@@ -154,7 +163,7 @@ export const App = () => {
           return <Exames onNavigate={navigateTo} />;
         case "home":
         default:
-          return <Home onLogout={handleLogout} onNavigate={navigateTo} />;
+          return <PerfilCliente onLogout={handleLogout} />;
       }
     }
     
