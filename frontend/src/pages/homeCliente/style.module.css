@@ -1,5 +1,5 @@
-/* Estilos Globais */
-.wrapper {
+@import url('../../assets/style/global.css');
+.body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,38 +10,38 @@
 }
 
 /* Container Principal */
-.conteudo {
+.content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 40px;
+  padding: 80px 0px;
   align-items: end;
 }
 
 /* Seção de Serviços */
-.servicos {
+.services {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.servicosHeader {
+.servicesHeader {
   margin-bottom: 10px;
 }
 
-.servicosHeader h1 {
-  font-size: 2.5rem;
-  color: #1e3a8a;
+.servicesHeader h1 {
+  font-size: var(--font-size-4xl);
+  color: var(--primary);
   margin-bottom: 12px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
 }
 
-.servicosHeader p {
-  font-size: 1.1rem;
-  color: #64748b;
+.servicesHeader p {
+  font-size: var(--font-size-md);
+  color: var(--text);
   font-weight: 400;
 }
 
@@ -52,7 +52,7 @@
   gap: 16px;
 }
 
-.servico {
+.service {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -65,14 +65,14 @@
   transition: all 0.3s ease;
 }
 
-.servico:hover {
-  border-color: #3b82f6;
+.service:hover {
+  border-color: var(--primary-light);
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
   transform: translateX(8px);
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 197, 253, 0.05) 100%);
 }
 
-.iconWrapper {
+.iconService{
   width: 60px;
   height: 60px;
   display: flex;
@@ -83,22 +83,22 @@
   flex-shrink: 0;
 }
 
-.iconWrapper img {
+.iconService img {
   width: 32px;
   height: 32px;
   object-fit: contain;
 }
 
-.servico h3 {
-  font-size: 1.1rem;
-  color: #1e293b;
+.service h3 {
+  font-size: var(--font-size-lg);
+  color: var(--text);
   font-weight: 600;
   margin: 0;
   transition: color 0.3s ease;
 }
 
-.servico:hover h3 {
-  color: #2563eb;
+.service:hover h3 {
+  color: var(--primary-light);
 }
 
 /* Seção Hero */
@@ -151,15 +151,15 @@
 }
 
 .imgInfo h2 {
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
   margin-bottom: 12px;
   line-height: 1.2;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .imgInfo p {
-  font-size: 1.1rem;
+  font-size:var(--font-size-md);
   margin-bottom: 24px;
   opacity: 0.95;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
@@ -170,11 +170,11 @@
   align-items: center;
   gap: 12px;
   background: white;
-  color: #1e40af;
+  color: var(--primary);
   border: none;
   padding: 16px 32px;
   border-radius: 50px;
-  font-size: 1.1rem;
+  font-size: var(--font-size-lg);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -184,7 +184,7 @@
 .agendarBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
-  background: #2563eb;
+  background: var(--primary-light);
   color: white;
 }
 
@@ -200,43 +200,40 @@
   transform: translateX(4px);
 }
 
-/* ============================================ */
-/* SEÇÃO DIFERENCIAIS */
-/* ============================================ */
 
-.diferenciaisSection {
+.differencesSection {
   padding: 80px 40px;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
-.diferenciaisHeader {
+.differencesHeader {
   text-align: center;
   margin-bottom: 60px;
 }
 
-.diferenciaisHeader h2 {
-  font-size: 2.5rem;
-  color: #1e3a8a;
+.differencesHeader h2 {
+  font-size:var(--font-size-4xl);
+  color: var(--primary);
   margin-bottom: 15px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
-.diferenciaisHeader p {
-  font-size: 1.2rem;
-  color: #64748b;
+.differencesHeader p {
+  font-size: var(--font-size-md);
+  color: var(--text);
   max-width: 600px;
   margin: 0 auto;
 }
 
-.diferenciaisGrid {
+.differencesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.diferencial {
+.difference {
   background: white;
   padding: 40px 30px;
   border-radius: 16px;
@@ -246,13 +243,13 @@
   border: 2px solid transparent;
 }
 
-.diferencial:hover {
+.difference:hover {
   transform: translateY(-8px);
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
-  border-color: #3b82f6;
+  border-color: var(--primary-light)
 }
 
-.diferencialIcon {
+.differenceIcon {
   width: 80px;
   height: 80px;
   margin: 0 auto 25px;
@@ -264,259 +261,61 @@
   transition: all 0.3s ease;
 }
 
-.diferencial:hover .diferencialIcon {
+.difference:hover .differenceIcon {
   transform: scale(1.1) rotate(5deg);
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
 }
 
-.diferencialIcon svg {
+.diffenreceIcon svg {
   color: white;
   fill: white;
 }
 
-.diferencial h3 {
-  font-size: 1.5rem;
-  color: #1e293b;
+.difference h3 {
+  font-size: var(--font-size-lg);
+  color: var(--text);
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.diferencial p {
-  font-size: 1rem;
-  color: #64748b;
+.difference p {
+  font-size: var(--font-size-md);
+  color: var(--text-light);
   line-height: 1.6;
 }
 
-/* ============================================ */
-/* SEÇÃO DE NÚMEROS/ESTATÍSTICAS */
-/* ============================================ */
-
-.numerosSection {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-  color: white;
-}
-
-.numerosContainer {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-}
-
-.numero {
-  text-align: center;
-  padding: 40px 30px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.numero:hover {
-  transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.numeroValor {
-  display: block;
-  font-size: 3.8rem;
-  font-weight: 800;
-  margin-bottom: 12px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-  line-height: 1;
-}
-
-.numeroLabel {
-  display: block;
-  font-size: 1.15rem;
-  opacity: 0.95;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-/* ============================================ */
-/* SEÇÃO DE HORÁRIOS */
-/* ============================================ */
-
-.horariosSection {
-  padding: 80px 40px;
-  background: white;
-}
-
-.horariosContainer {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.horariosInfo h2 {
-  font-size: 2.5rem;
-  color: #1e3a8a;
-  margin-bottom: 40px;
-  font-weight: 700;
-}
-
-.horariosList {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.horarioItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 22px 28px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 12px;
-  border: 2px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.horarioItem:hover {
-  border-color: #3b82f6;
-  transform: translateX(8px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 197, 253, 0.05) 100%);
-}
-
-.horarioDia {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.horarioHora {
-  font-size: 1.1rem;
-  color: #3b82f6;
-  font-weight: 700;
-}
-
-.horarioDestaque {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 25px 28px;
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  border-radius: 12px;
-  margin-top: 10px;
-  border: 2px solid #3b82f6;
-  transition: all 0.3s ease;
-}
-
-.horarioDestaque:hover {
-  transform: translateX(8px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-}
-
-.horarioDestaque svg {
-  color: #1e40af;
-  flex-shrink: 0;
-}
-
-.horarioDestaque span {
-  font-size: 1.05rem;
-  color: #1e293b;
-  font-weight: 600;
-}
-
-.horariosImagem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.horariosCard {
-  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-  padding: 50px 40px;
-  border-radius: 20px;
-  color: white;
-  width: 100%;
-  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.3);
-  transition: all 0.3s ease;
-}
-
-.horariosCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 50px rgba(30, 58, 138, 0.4);
-}
-
-.horariosCard h3 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.contatoInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.contatoInfo p {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 1.05rem;
-  padding: 18px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  line-height: 1.4;
-}
-
-.contatoInfo p:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateX(5px);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.contatoInfo svg {
-  flex-shrink: 0;
-}
-
 /* Seção do Mapa */
-.mapaSection {
+.mapSection {
   width: 100%;
   padding: 80px 0 0;
 }
 
-.mapaHeader {
+.mapHeader {
   text-align: center;
   margin-bottom: 50px;
   padding: 0 40px;
 }
 
-.mapaHeader h2 {
-  font-size: 2.5rem;
-  color: #1e3a8a;
+.mapHeader h2 {
+  font-size: var(--font-size-4xl);
+  color:var(--primary);
   margin-bottom: 15px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
-.mapaHeader p {
-  font-size: 1.2rem;
-  color: #64748b;
+.mapHeader p {
+  font-size: var(--font-size-md);
+  color: var(--text)
 }
 
-.mapaWrapper {
+.mapaContent{
   width: 100%;
   border-radius: 0;
   overflow: hidden;
   box-shadow: 0 -4px 20px rgba(30, 58, 138, 0.1), 0 4px 20px rgba(30, 58, 138, 0.1);
 }
 
-.mapaWrapper iframe {
+.mapaContent iframe {
   display: block;
 }
 
@@ -547,12 +346,8 @@
   transform: translateY(0);
 }
 
-/* ============================================ */
-/* RESPONSIVIDADE */
-/* ============================================ */
-
 @media (max-width: 1024px) {
-  .conteudo {
+  .content {
     grid-template-columns: 1fr;
     gap: 60px;
     padding: 60px 30px;

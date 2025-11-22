@@ -83,10 +83,10 @@ export const Exames: React.FC<ExamesProps> = ({ onNavigate })=> {
   const exameSelecionado = updatedExames.find(
     (exame: Exame) => exame.value === formData.tipo
   );
-
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <div className={style.body}>
-      <Header />
+      <Header username={user.nome} />
       <main className={style.mainContent}>
         <div className={style.container}>
           <div className={style.pageHeader}>

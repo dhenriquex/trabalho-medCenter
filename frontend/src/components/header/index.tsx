@@ -39,7 +39,7 @@ export const Header = ({username, medico, onClick}:HeaderProps) => {
         </ul>
       </nav>
  }
-      <div className={style.perfil} onClick={onClick}
+      <div className={style.profile} onClick={onClick}
       style={{ cursor: onClick ? 'pointer' : 'default' }}>
         <img src={perfil} alt="" />
         <h3>{username}</h3>

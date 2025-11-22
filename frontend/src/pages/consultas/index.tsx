@@ -83,10 +83,11 @@ export const Consultas: React.FC<ConsultasProps> = ({ onNavigate }) => {
       window.history.back();
     }
   };
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
     <div className={style.body}>
-      <Header />
+      <Header username={user.nome} />
       <main className={style.mainContent}>
         <div className={style.container}>
           <div className={style.pageHeader}>

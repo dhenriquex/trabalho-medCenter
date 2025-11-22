@@ -1,6 +1,7 @@
+@import url('../../assets/style/global.css');
 .footer {
   width: 100%;
-  background:  #273b76;
+  background: var(--primary);
   color: white;
   display: flex;
   flex-direction: column;
@@ -12,8 +13,8 @@
   justify-content: space-between;
   gap: 40px;
   width: 100%;
-  max-width: 1400px;
-  padding: 50px 20px;
+  max-width: 1200px;
+  padding: 50px 0px;
   margin: 0 auto;
 }
 
@@ -22,19 +23,20 @@
 }
 
 .aboutUs h3 {
-  font-size: 1.4rem;
+  font-size: var(--font-size-2xl);
   margin-bottom: 10px;
 }
 
 .aboutUs p {
-  font-size: 0.95rem;
+  font-size: var(--font-size-lg);
   line-height: 1.5;
-  color: #ddd;
+  color:var(--text-light);
 }
 
 .followText {
   margin-top: 20px;
   font-weight: bold;
+  font-size: var(--font-size-lg);
 }
 
 .imgs {
@@ -46,7 +48,7 @@
 
 .imgs img {
   width:auto;
-  height: 25px;
+  height: 50px;
   padding: 8px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.15);
@@ -59,7 +61,7 @@
 }
 
 .column h3 {
-  font-size: 1.2rem;
+  font-size: var(--font-size-2xl);
   margin-bottom: 15px;
   border-bottom: 2px solid #fff;
   padding-bottom: 5px;
@@ -72,7 +74,8 @@
 
 .column ul li {
   margin-bottom: 10px;
-  font-size: 0.95rem;
+  font-size: var(--font-size-lg);
+  color: var(--text-light);
 }
 
 .quickAccess {
@@ -93,12 +96,13 @@
   padding: 8px 12px;
   border-radius: 8px;
   font-weight: bold;
+  font-size: var(--font-size-md);
   cursor: pointer;
   transition: 0.2s;
 }
 
 .buttons button:hover {
-  background: #ffcc00;
+  background: var(--alert);
   color: #1b2850;
 }
 
@@ -106,6 +110,6 @@
   background: #1b2850;
   text-align: center;
   padding: 15px;
-  font-size: 0.85rem;
-  color: #bbb;
+  font-size: var(--font-size-xs);
+  color: var(--text-light);
 }

@@ -1,17 +1,11 @@
-/* Reset e Configurações Globais */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+@import url("../../assets/style/global.css");
 /* Wrapper Global */
 .wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background: var(--background);
+  font-family: var(--font-family);
 }
 
 .mainContent {
@@ -36,15 +30,15 @@
 }
 
 .welcomeTitle {
-  font-size: 2.5rem;
-  color: #1e3a8a;
+  font-size: var(--font-size-4xl);
+  color: var(--primary);
   margin-bottom: 12px;
   font-weight: 700;
 }
 
 .welcomeSubtitle {
-  color: #64748b;
-  font-size: 1.2rem;
+  color: var(--text-light);
+  font-size: var(--font-size-md);
   font-weight: 400;
 }
 
@@ -62,26 +56,26 @@
   border-radius: 16px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(30, 58, 138, 0.08);
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid var(--primary-light);
   transition: all 0.3s ease;
 }
 
 .statCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-  border-left-color: #2563eb;
+  border-left-color: var(--primary-light);
 }
 
 .statNumber {
-  font-size: 3rem;
+  font-size: var(--font-size-4xl);
   font-weight: 800;
-  color: #1e3a8a;
+  color: var(--primary);
   margin-bottom: 8px;
   line-height: 1;
 }
 
 .statLabel {
-  color: #64748b;
+  color: var(--text);
   font-size: 1rem;
   font-weight: 500;
 }
@@ -106,7 +100,7 @@
 .dashboardCard:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 35px rgba(59, 130, 246, 0.15);
-  border-color: #3b82f6;
+  border-color: var(--primary-light);
 }
 
 .cardHeader {
@@ -132,16 +126,8 @@
   transform: scale(1.1) rotate(5deg);
 }
 
-.iconSchedule {
-  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-}
-
-.iconAppointments {
-  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-}
-
-.iconResults {
-  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+.icon {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 }
 
 .cardTitle {
@@ -180,7 +166,8 @@
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  font-family: "Arial", sans-serif; /* Fonte mais limpa (pode trocar por uma Google Font se quiser) */
+  background: var(--primary-light);
   color: white;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
@@ -188,12 +175,11 @@
 .btnPrimary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
 }
 
 .btnSecondary {
   background: #f1f5f9;
-  color: #1e3a8a;
+  color: var(--primary);
   border: 2px solid #e2e8f0;
 }
 
@@ -208,7 +194,6 @@
   font-size: 0.9rem;
 }
 
-/* Recent Activity */
 .recentActivity {
   background: white;
   border-radius: 20px;
@@ -227,7 +212,7 @@
   width: 45px;
   height: 45px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: var(--primary-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,7 +221,7 @@
 
 .activityTitle {
   font-size: 1.5rem;
-  color: #1e3a8a;
+  color: var(--primary);
   font-weight: 700;
   margin: 0;
 }
@@ -264,7 +249,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: var(--primary-light);
   flex-shrink: 0;
   margin-top: 4px;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
@@ -277,12 +262,12 @@
 .activityText {
   font-weight: 600;
   margin-bottom: 4px;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .activityDate {
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--text-light);
 }
 
 /* Modals */
@@ -581,14 +566,24 @@
 }
 .logout {
   border: none;
-  background-color: #ef4444;
-  color: white;
-  padding: 10px 20px;
+  font-weight: bold;
+  background-color: var(--error-light);
+  padding: 15px 30px;
+  border-radius: 20px;
+  font-family: var(--font-family-mono);
+  color: var(--error);
   font-size: 30px;
   margin: 0 auto 50px auto;
-   border-radius: 8px; /* Cantos arredondados para um visual mais suave */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
-  font-family: 'Arial', sans-serif; /* Fonte mais limpa (pode trocar por uma Google Font se quiser) */
-  cursor: pointer; /* Cursor de mão ao passar o mouse */
-  transition: all 0.3s ease; /* Transição suave para mudanças */
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  img{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+  }
+}
+.void {
+  text-align: "center";
+  padding: "30px";
+  color: "#666";
 }

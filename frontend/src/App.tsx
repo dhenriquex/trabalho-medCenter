@@ -3,9 +3,10 @@ import style from "./App.module.css";
 
 import { Footer } from "./components/footer";
 import { PerfilCliente } from "./pages/perfilCliente";
+import Home from "./pages/homeCliente";
 import DashboardMedico from "./pages/homeMedico";
 import Consultas from "./pages/consultas";
-import Exames from "./pages/exames"; // Você precisa criar esta página
+import Exames from "./pages/exames";
 
 export const App = () => {
   const [formData, setFormData] = useState({ search: "", password: "" });
@@ -15,12 +16,11 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("login");
 
-  // Verificar se já está logado ao carregar
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userStr = localStorage.getItem("user");
     const savedPage = localStorage.getItem("currentPage");
-    
+
     if (token && userStr) {
       try {
         const user = JSON.parse(userStr);
@@ -28,7 +28,6 @@ export const App = () => {
           console.log("Usuário encontrado:", user.tipo);
           setIsLoggedIn(true);
           setUserType(user.tipo);
-          // Restaurar a página atual se existir
           if (savedPage) {
             setCurrentPage(savedPage);
           } else {
@@ -45,16 +44,21 @@ export const App = () => {
     setIsLoading(false);
   }, []);
 
-  // Listener para mudanças na URL
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname;
+      console.log("🔄 URL mudou para:", path);
+
       if (path === "/consultas") {
         setCurrentPage("consultas");
       } else if (path === "/exames") {
         setCurrentPage("exames");
-      } else if (path === "/dashboard") {  // **ALTERAÇÃO: Adicionei verificação para "/dashboard"**
+      } else if (path === "/perfil-clientes") {
+        setCurrentPage("perfil-clientes");
+      } else if (path === "/dashboard") {
         setCurrentPage("dashboard");
+      } else if (path === "/home") {
+        setCurrentPage("home");
       } else if (path === "/" && isLoggedIn) {
         setCurrentPage(userType === "cliente" ? "home" : "dashboard");
       }
@@ -66,18 +70,32 @@ export const App = () => {
 
   // Função para navegar entre páginas
   const navigateTo = (page: string) => {
+    console.log("Navegando para:", page);
     setCurrentPage(page);
     localStorage.setItem("currentPage", page);
-    
-    // **ALTERAÇÃO: Diferencie a URL com base no userType**
+
     let path;
-    if (page === "home" && userType === "cliente") {
-      path = "/perfil-clientes";  // Para clientes
-    } else if (page === "dashboard" && userType === "medico") {
-      path = "/dashboard";  // Para médicos
-    } else {
-      path = `/${page}`;  // Para outras páginas (consultas, exames, etc.)
+    switch (page) {
+      case "home":
+        path = "/home";
+        break;
+      case "perfil":
+        path = "/perfil-clientes";
+        break;
+      case "dashboard":
+        path = "/dashboard";
+        break;
+      case "consultas":
+        path = "/consultas";
+        break;
+      case "exames":
+        path = "/exames";
+        break;
+      default:
+        path = `/${page}`;
     }
+
+    console.log("URL atualizada para:", path);
     window.history.pushState({}, "", path);
   };
 
@@ -105,19 +123,19 @@ export const App = () => {
 
       if (response.ok) {
         console.log("Login bem-sucedido:", data);
-        
+
         // Salvar no localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        
+
         // Atualizar estado
         setIsLoggedIn(true);
         setUserType(data.user.tipo);
-        
+
         // Navegar para a página apropriada
         const page = data.user.tipo === "cliente" ? "home" : "dashboard";
         navigateTo(page);
-        
+
         console.log("Estado atualizado para:", data.user.tipo);
       } else {
         setError(data.error || "Erro no login.");
@@ -142,34 +160,49 @@ export const App = () => {
 
   // Loading inicial
   if (isLoading) {
-    return <div style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center", 
-      height: "100vh" 
-    }}>
-      Carregando...
-    </div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        Carregando...
+      </div>
+    );
   }
 
   // Sistema de rotas baseado no estado
   if (isLoggedIn) {
+    console.log("👤 Tipo:", userType, "| 📄 Página:", currentPage);
+
     // Rotas para cliente
     if (userType === "cliente") {
       switch (currentPage) {
+        case "perfil":
+          return (
+            <PerfilCliente onLogout={handleLogout} onNavigate={navigateTo} />
+          );
+
         case "consultas":
           return <Consultas onNavigate={navigateTo} />;
+
         case "exames":
           return <Exames onNavigate={navigateTo} />;
+
         case "home":
         default:
-          return <PerfilCliente onLogout={handleLogout} />;
+          return <Home onLogout={handleLogout} onNavigate={navigateTo} />;
       }
     }
-    
+
     // Rotas para médico
     if (userType === "medico") {
-      return <DashboardMedico onLogout={handleLogout} onNavigate={navigateTo} />;
+      return (
+        <DashboardMedico onLogout={handleLogout} onNavigate={navigateTo} />
+      );
     }
   }
 
@@ -178,9 +211,10 @@ export const App = () => {
   return (
     <div className={style.body}>
       <main>
-        <div className={style.cadastre}>
+        <div className={style.main}>
           <div className={style.login}>
             <h2>Login</h2>
+            {error && <p className={style.error}>{error}</p>}
             <form onSubmit={handleSubmit}>
               <div className={style.info}>
                 <div className={style.inputInfo}>
@@ -206,18 +240,9 @@ export const App = () => {
                   />
                 </div>
               </div>
-              {error && (
-                <p style={{ 
-                  color: "red", 
-                  marginTop: "10px",
-                  fontSize: "14px" 
-                }}>
-                  {error}
-                </p>
-              )}
               <button type="submit">Login</button>
             </form>
-            <p>
+            <p className={style.forgetPassoword}>
               <a href="#">Esqueceu a senha?</a>
             </p>
           </div>

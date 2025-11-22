@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import styles from "./style.module.css";
+import sair from "../../assets/img/sair.png";
 
+// Interfaces existentes...
 interface Exame {
   id: number;
   nome: string;
@@ -39,6 +41,7 @@ interface AtividadeRecente {
   texto: string;
   data: string;
 }
+
 interface PerfilClienteProps {
   onLogout?: () => void;
   onNavigate?: (page: string) => void;
@@ -73,7 +76,6 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
     observacoes: "",
   });
 
-  // Buscar dados do perfil ao carregar o componente
   useEffect(() => {
     buscarDadosPerfil();
   }, []);
@@ -81,8 +83,6 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
   const buscarDadosPerfil = async () => {
     try {
       setLoading(true);
-
-      // Pegar token do localStorage
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -91,7 +91,6 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
         return;
       }
 
-      // Fazer requisição para o backend
       const response = await fetch("http://localhost:8800/perfil-clientes", {
         method: "GET",
         headers: {
@@ -106,7 +105,6 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
       const data = await response.json();
 
-      // Atualizar estados com os dados recebidos
       setUser(data.cliente);
       setExamesAgendados(data.examesAgendados || []);
       setResultadosDisponiveis(data.resultadosDisponiveis || []);
@@ -164,6 +162,12 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
     }
   };
 
+  // Handler para clicar no perfil (já está no perfil, então não faz nada ou recarrega)
+  const handleHeaderClick = () => {
+    // Já está na página de perfil, não precisa navegar
+    console.log("Já está na página de perfil");
+  };
+
   if (loading) {
     return (
       <div className={styles.wrapper}>
@@ -180,10 +184,12 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
     );
   }
 
+  const fecharModal = () => setModalAberto(null);
+
   return (
     <div className={styles.wrapper}>
-      <Header username={user?.nome || "Usuário"} />
-      
+      <Header username={user?.nome || "Usuário"} onClick={handleHeaderClick} />
+
       <main className={styles.mainContent}>
         <div className={styles.container}>
           {/* Welcome Section */}
@@ -221,7 +227,7 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
             {/* Agendar Exame */}
             <div className={styles.dashboardCard}>
               <div className={styles.cardHeader}>
-                <div className={`${styles.cardIcon} ${styles.iconSchedule}`}>
+                <div className={`${styles.cardIcon} ${styles.icon}`}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <rect
                       x="3"
@@ -253,21 +259,13 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
                 >
                   Novo Agendamento
                 </button>
-                <button
-                  className={`${styles.btn} ${styles.btnSecondary}`}
-                  onClick={() => abrirModal("availability")}
-                >
-                  Ver Disponibilidade
-                </button>
               </div>
             </div>
 
             {/* Ver Exames Agendados */}
             <div className={styles.dashboardCard}>
               <div className={styles.cardHeader}>
-                <div
-                  className={`${styles.cardIcon} ${styles.iconAppointments}`}
-                >
+                <div className={`${styles.cardIcon} ${styles.icon}`}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                       d="M9 11L12 14L22 4"
@@ -277,7 +275,7 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
                       strokeLinejoin="round"
                     />
                     <path
-                      d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 3.21071 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16"
+                      d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16"
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
@@ -298,16 +296,13 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
                 >
                   Ver Agendamentos
                 </button>
-                <button className={`${styles.btn} ${styles.btnSecondary}`}>
-                  Configurar Lembretes
-                </button>
               </div>
             </div>
 
             {/* Consultar Resultados */}
             <div className={styles.dashboardCard}>
               <div className={styles.cardHeader}>
-                <div className={`${styles.cardIcon} ${styles.iconResults}`}>
+                <div className={`${styles.cardIcon} ${styles.icon}`}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                       d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
@@ -337,9 +332,6 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
                   onClick={() => abrirModal("results")}
                 >
                   Ver Resultados
-                </button>
-                <button className={`${styles.btn} ${styles.btnSecondary}`}>
-                  Baixar Laudos
                 </button>
               </div>
             </div>
@@ -385,7 +377,123 @@ export const PerfilCliente: React.FC<PerfilClienteProps> = ({
           </div>
         </div>
       </main>
-      {onLogout && <button className={styles.logout} onClick={onLogout}>Logout</button>}
+      {modalAberto === "appointments" && (
+        <div className={styles.modal} onClick={fecharModal}>
+          <div
+            className={`${styles.modalContent} ${styles.modalLarge}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className={styles.close} onClick={fecharModal}>
+              &times;
+            </span>
+            <h2 className={styles.modalTitle}>Meus Exames Agendados</h2>
+            {examesAgendados.length > 0 ? (
+              <table className={styles.resultsTable}>
+                <thead>
+                  <tr>
+                    <th>Exame</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Médico</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {examesAgendados.map((exame) => (
+                    <tr key={exame.id}>
+                      <td>{exame.nome}</td>
+                      <td>{exame.data}</td>
+                      <td>{exame.horario || "09:00"}</td>
+                      <td>{exame.medico || "Não informado"}</td>
+                      <td>
+                        <span
+                          className={`${styles.statusBadge} ${getStatusClass(
+                            exame.status
+                          )}`}
+                        >
+                          {getStatusText(exame.status)}
+                        </span>
+                      </td>
+                      <td>R$ {exame.valor?.toFixed(2) || "0.00"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p
+                className={styles.void}
+              >
+                Você não possui exames agendados no momento.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+      {modalAberto === "results" && (
+        <div className={styles.modal} onClick={fecharModal}>
+          <div
+            className={`${styles.modalContent} ${styles.modalLarge}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className={styles.close} onClick={fecharModal}>
+              &times;
+            </span>
+            <h2 className={styles.modalTitle}>Meus Resultados</h2>
+            {resultadosDisponiveis.length > 0 ? (
+              <table className={styles.resultsTable}>
+                <thead>
+                  <tr>
+                    <th>Exame</th>
+                    <th>Data</th>
+                    <th>Resultado</th>
+                    <th>Médico</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {resultadosDisponiveis.map((resultado) => (
+                    <tr key={resultado.id}>
+                      <td>{resultado.nome}</td>
+                      <td>{resultado.data}</td>
+                      <td>{resultado.resultado || "Disponível"}</td>
+                      <td>{resultado.medico || "Não informado"}</td>
+                      <td>
+                        <span
+                          className={`${styles.statusBadge} ${getStatusClass(
+                            resultado.status
+                          )}`}
+                        >
+                          {getStatusText(resultado.status)}
+                        </span>
+                      </td>
+                      <td>
+                        <button
+                          className={`${styles.btn} ${styles.btnPrimary} ${styles.btnSmall}`}
+                        >
+                          Baixar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className={styles.void}>
+                Você não possui resultados disponíveis no momento.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {onLogout && (
+        <button className={styles.logout} onClick={onLogout}>
+          <img src={sair} alt="" />
+          Logout
+        </button>
+      )}
       <Footer />
     </div>
   );
