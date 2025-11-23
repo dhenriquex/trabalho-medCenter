@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import styles from "./style.module.css";
-
+import Grafico from "../../components/grafico";
 interface MedicoProps {
   onLogout?: () => void;
   onNavigate?: (page: string) => void;
@@ -53,16 +53,18 @@ interface Exame {
 }
 
 const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
-  const [activeTab, setActiveTab] = useState<'today' | 'week' | 'month'>('today');
+  const [activeTab, setActiveTab] = useState<"today" | "week" | "month">(
+    "today"
+  );
   const [loading, setLoading] = useState(true);
-  
+
   // Estados para dados do backend
   const [medico, setMedico] = useState<Medico | null>(null);
   const [estatisticas, setEstatisticas] = useState<Estatisticas>({
     consultasHoje: 0,
     pacientesAtivos: 0,
     examesPendentes: 0,
-    receitasHoje: 0
+    receitasHoje: 0,
   });
   const [consultasHoje, setConsultasHoje] = useState<Consulta[]>([]);
   const [consultasSemana, setConsultasSemana] = useState<ConsultaSemana[]>([]);
@@ -76,12 +78,12 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
   const buscarDadosDashboard = async () => {
     try {
       setLoading(true);
-      
+
       const token = localStorage.getItem("token");
-      
+
       console.log("🔍 Buscando dashboard do médico...");
       console.log("🔑 Token:", token);
-      
+
       if (!token) {
         alert("Token não encontrado. Faça login novamente.");
         window.location.href = "/";
@@ -91,9 +93,9 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
       const response = await fetch("http://localhost:8800/dashboard", {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
 
       console.log("📡 Status:", response.status);
@@ -111,7 +113,6 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
       setConsultasHoje(data.consultasHoje || []);
       setConsultasSemana(data.consultasSemana || []);
       setExamesPendentes(data.examesPendentes || []);
-
     } catch (error) {
       console.error("❌ Erro ao buscar dados:", error);
       alert("Erro ao carregar dashboard: " + error);
@@ -139,7 +140,7 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
         <Header username="Carregando..." medico={true} />
         <main>
           <div className={styles.container}>
-            <div style={{ textAlign: 'center', padding: '50px' }}>
+            <div style={{ textAlign: "center", padding: "50px" }}>
               <p>Carregando dados do dashboard...</p>
             </div>
           </div>
@@ -152,30 +153,28 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
   return (
     <div>
       <Header username={medico?.nome || "Médico"} medico={true} />
-      
+
       <main>
         <div className={styles.container}>
-          {/* Page Header */}
           <div className={styles.pageHeader}>
-            <h1 className={styles.pageTitle}>Painel Médico</h1>
             <p className={styles.pageSubtitle}>
               {medico?.especialidade} - CRM: {medico?.crm}
             </p>
           </div>
 
           {onLogout && (
-            <button 
+            <button
               onClick={onLogout}
               style={{
-                position: 'absolute',
-                top: '20px',
-                right: '20px',
-                padding: '10px 20px',
-                background: '#dc3545',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer'
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                padding: "10px 20px",
+                background: "#dc3545",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
               }}
             >
               Sair
@@ -186,53 +185,81 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
           <div className={styles.statsGrid}>
             <div className={styles.statCard}>
               <div className={styles.statHeader}>
-                <div className={`${styles.statIcon} ${styles.iconBlue}`}>
+                <div className={`${styles.statIcon} ${styles.icon}`}>
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
                   </svg>
                 </div>
-                <div className={styles.statNumber}>{estatisticas.consultasHoje}</div>
+                <div className={styles.statNumber}>
+                  {estatisticas.consultasHoje}
+                </div>
               </div>
               <div className={styles.statLabel}>Consultas Hoje</div>
             </div>
 
             <div className={styles.statCard}>
               <div className={styles.statHeader}>
-                <div className={`${styles.statIcon} ${styles.iconGreen}`}>
+                <div className={`${styles.statIcon} ${styles.icon}`}>
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
                   </svg>
                 </div>
-                <div className={styles.statNumber}>{estatisticas.pacientesAtivos}</div>
+                <div className={styles.statNumber}>
+                  {estatisticas.pacientesAtivos}
+                </div>
               </div>
               <div className={styles.statLabel}>Pacientes Ativos</div>
             </div>
 
             <div className={styles.statCard}>
               <div className={styles.statHeader}>
-                <div className={`${styles.statIcon} ${styles.iconAmber}`}>
+                <div className={`${styles.statIcon} ${styles.icon}`}>
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
                 </div>
-                <div className={styles.statNumber}>{estatisticas.examesPendentes}</div>
+                <div className={styles.statNumber}>
+                  {estatisticas.examesPendentes}
+                </div>
               </div>
               <div className={styles.statLabel}>Exames Pendentes</div>
             </div>
 
             <div className={styles.statCard}>
               <div className={styles.statHeader}>
-                <div className={`${styles.statIcon} ${styles.iconPurple}`}>
+                <div className={`${styles.statIcon} ${styles.icon}`}>
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
                 </div>
-                <div className={styles.statNumber}>{estatisticas.receitasHoje}</div>
+                <div className={styles.statNumber}>
+                  {estatisticas.receitasHoje}
+                </div>
               </div>
               <div className={styles.statLabel}>Receitas Hoje</div>
             </div>
           </div>
-
+          <Grafico consultasSemana={consultasSemana} />
           {/* Main Content Grid */}
           <div className={styles.contentGrid}>
             {/* Appointments Section */}
@@ -243,30 +270,40 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
 
               {/* Tabs */}
               <div className={styles.tabs}>
-                <button 
-                  className={`${styles.tab} ${activeTab === 'today' ? styles.active : ''}`} 
-                  onClick={() => setActiveTab('today')}
+                <button
+                  className={`${styles.tab} ${
+                    activeTab === "today" ? styles.active : ""
+                  }`}
+                  onClick={() => setActiveTab("today")}
                 >
                   Hoje
                 </button>
-                <button 
-                  className={`${styles.tab} ${activeTab === 'week' ? styles.active : ''}`} 
-                  onClick={() => setActiveTab('week')}
+                <button
+                  className={`${styles.tab} ${
+                    activeTab === "week" ? styles.active : ""
+                  }`}
+                  onClick={() => setActiveTab("week")}
                 >
                   Esta Semana
                 </button>
               </div>
 
               {/* Today Tab */}
-              {activeTab === 'today' && (
+              {activeTab === "today" && (
                 <div className={styles.tabContent}>
                   {consultasHoje.length > 0 ? (
                     consultasHoje.map((consulta) => (
                       <div key={consulta.id} className={styles.appointmentItem}>
-                        <div className={styles.appointmentTime}>{consulta.horario}</div>
+                        <div className={styles.appointmentTime}>
+                          {consulta.horario}
+                        </div>
                         <div className={styles.appointmentDetails}>
-                          <div className={styles.appointmentPatient}>{consulta.paciente}</div>
-                          <div className={styles.appointmentType}>{consulta.tipo}</div>
+                          <div className={styles.appointmentPatient}>
+                            {consulta.paciente}
+                          </div>
+                          <div className={styles.appointmentType}>
+                            {consulta.tipo}
+                          </div>
                         </div>
                         <div className={getStatusBadgeClass(consulta.status)}>
                           {consulta.status}
@@ -274,7 +311,13 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
                       </div>
                     ))
                   ) : (
-                    <p style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        padding: "20px",
+                        color: "#666",
+                      }}
+                    >
                       Nenhuma consulta agendada para hoje
                     </p>
                   )}
@@ -282,7 +325,7 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
               )}
 
               {/* Week Tab */}
-              {activeTab === 'week' && (
+              {activeTab === "week" && (
                 <div className={styles.tabContent}>
                   {consultasSemana.length > 0 ? (
                     <table className={styles.scheduleTable}>
@@ -303,7 +346,9 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
                             <td>{consulta.tipo}</td>
                             <td>{consulta.horario}</td>
                             <td>
-                              <span className={getStatusBadgeClass(consulta.status)}>
+                              <span
+                                className={getStatusBadgeClass(consulta.status)}
+                              >
                                 {consulta.status}
                               </span>
                             </td>
@@ -312,7 +357,13 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
                       </tbody>
                     </table>
                   ) : (
-                    <p style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        padding: "20px",
+                        color: "#666",
+                      }}
+                    >
                       Nenhuma consulta agendada para esta semana
                     </p>
                   )}
@@ -330,9 +381,18 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
                 {examesPendentes.length > 0 ? (
                   examesPendentes.map((exame) => (
                     <div key={exame.id} className={styles.actionItem}>
-                      <div className={`${styles.actionIcon} ${styles.iconAmber}`}>
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      <div className={`${styles.actionIcon} ${styles.icon}`}>
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
                         </svg>
                       </div>
                       <div className={styles.actionText}>
@@ -344,7 +404,13 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
                     </div>
                   ))
                 ) : (
-                  <p style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                  <p
+                    style={{
+                      textAlign: "center",
+                      padding: "20px",
+                      color: "#666",
+                    }}
+                  >
                     Nenhum exame pendente
                   </p>
                 )}
@@ -353,7 +419,7 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
           </div>
         </div>
       </main>
-     
+
       <Footer />
     </div>
   );

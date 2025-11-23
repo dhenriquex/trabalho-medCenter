@@ -542,8 +542,7 @@ export const perfilCliente = async (req, res) => {
   }
 };
 export const dashboardMedico = async (req, res) => {
-  console.log("📊 ========== DASHBOARD MÉDICO CHAMADO ==========");
-  console.log("👨‍⚕️ req.user:", req.user);
+  console.log(" req.user:", req.user);
 
   try {
     const medicoId = req.user?.id;
@@ -553,10 +552,6 @@ export const dashboardMedico = async (req, res) => {
     }
 
     console.log("🔍 Médico ID:", medicoId);
-
-    // ============================================
-    // 1. BUSCAR DADOS DO MÉDICO
-    // ============================================
     const queryMedico = `
       SELECT 
         m.id,
@@ -569,9 +564,6 @@ export const dashboardMedico = async (req, res) => {
       WHERE m.id = ?
     `;
 
-    // ============================================
-    // 2. ESTATÍSTICAS GERAIS
-    // ============================================
     const queryEstatisticas = `
       SELECT 
         (SELECT COUNT(*) FROM consulta WHERE medico_id = ? AND DATE(dataConsulta) = CURDATE()) as consultasHoje,
@@ -580,9 +572,6 @@ export const dashboardMedico = async (req, res) => {
         (SELECT COUNT(*) FROM consulta WHERE medico_id = ? AND DATE(dataConsulta) = CURDATE() AND statusEx = 'Concluido') as receitasHoje
     `;
 
-    // ============================================
-    // 3. CONSULTAS DE HOJE
-    // ============================================
     const queryConsultasHoje = `
       SELECT 
         c.id,
@@ -601,28 +590,23 @@ export const dashboardMedico = async (req, res) => {
       LIMIT 10
     `;
 
-    // ============================================
-    // 4. CONSULTAS DA SEMANA
-    // ============================================
     const queryConsultasSemana = `
-      SELECT 
-        c.id,
-        c.tipo,
-        DATE_FORMAT(c.dataConsulta, '%d/%m/%Y') as data,
-        c.statusEx as status,
-        cl.nome as pacienteNome,
-        '10:00' as horario
-      FROM consulta c
-      INNER JOIN cliente cl ON c.cliente_id = cl.id
-      WHERE c.medico_id = ? 
-        AND YEARWEEK(c.dataConsulta, 1) = YEARWEEK(CURDATE(), 1)
-      ORDER BY c.dataConsulta ASC
-      LIMIT 20
-    `;
+  SELECT 
+    c.id,
+    c.tipo,
+    DATE_FORMAT(c.dataConsulta, '%d/%m/%Y') as data,
+    c.statusEx as status,
+    cl.nome as pacienteNome,
+    '10:00' as horario
+  FROM consulta c
+  INNER JOIN cliente cl ON c.cliente_id = cl.id
+  WHERE c.medico_id = ? 
+    AND YEAR(c.dataConsulta) = YEAR(CURDATE())
+  ORDER BY c.dataConsulta ASC
+  LIMIT 200
+`;
 
-    // ============================================
-    // 5. EXAMES PENDENTES
-    // ============================================
+
     const queryExamesPendentes = `
       SELECT 
         e.id,
@@ -639,9 +623,6 @@ export const dashboardMedico = async (req, res) => {
       LIMIT 10
     `;
 
-    // ============================================
-    // EXECUTAR QUERIES
-    // ============================================
     
     db.query(queryMedico, [medicoId], (err, dadosMedico) => {
       if (err) {

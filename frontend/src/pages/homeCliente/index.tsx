@@ -132,6 +132,18 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
                 eficazes
               </p>
             </div>
+            <div className={style.diferencial}>
+              <div className={style.diferencialIcon}>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                ></svg>
+              </div>
+              <h3>Atendimento Humanizado</h3>
+              <p>Cuidado personalizado e acolhedor para cada paciente</p>
+            </div>
           </div>
         </section>
 
