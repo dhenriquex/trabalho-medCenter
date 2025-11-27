@@ -1,0 +1,186 @@
+@import url('./assets/style/global.css');
+
+.body main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height:750px;
+    background-color: var(--background);
+}
+.main {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    min-height: 500px;
+    background-color: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.main:hover {
+    transform: translateY(-5px);
+}
+
+.login {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 40px;
+    justify-content: center;
+    background-color: var(--white);
+}
+
+.login h2 {
+    font-size: var(--font-size-3xl);
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.login h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--text);
+    border-radius: 2px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.inputInfo {
+    position: relative;
+    margin-top: 5px;
+}
+
+.inputInfo label {
+    color: var(--primary-light);
+    font-size: var(--font-size-md);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.inputInfo input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: var(--font-size-xs);
+    color: var(--text);
+    border: none;
+    border-bottom: 2px solid var(--text-light);
+    outline: none;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.inputInfo input:focus,
+.inputInfo input:valid {
+    border-bottom-color: var(--primary);
+}
+
+.inputInfo input:focus ~ label,
+.inputInfo input:valid ~ label {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: var(--primary);
+}
+
+.login button {
+    color: var(--white);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    background: #273b76;;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(49, 130, 206, 0.2);
+}
+
+.login button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(49, 130, 206, 0.3);
+}
+
+.login button:active {
+    transform: translateY(0);
+}
+
+.loginText {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #273b76;
+    padding: 40px;
+    color: var(--white);
+    text-align: center;
+}
+.loginText h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.loginText p {
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 400px;
+}
+.forgetPassoword {
+    margin-top: 15px;
+    font-weight: 500;
+}
+.forgetPassoword a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.error{
+    color: var(--error);
+    margin-bottom: 15px;
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: var(--error-light);
+    padding: 10px 20px;
+}
+@media (max-width: 992px) {
+  .main {
+    max-width: 800px;
+  }
+
+  .login {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column-reverse;
+  }
+
+  .loginText {
+    padding: 30px;
+  }
+
+  .login {
+    padding: 30px;
+  }
+
+  .info {
+    gap: 20px;
+  }
+}

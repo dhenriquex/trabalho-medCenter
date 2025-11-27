@@ -1,0 +1,393 @@
+@import url('../../assets/style/global.css');
+.body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+}
+
+/* Container Principal */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 0px;
+  align-items: end;
+}
+
+/* Seção de Serviços */
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.servicesHeader {
+  margin-bottom: 10px;
+}
+
+.servicesHeader h1 {
+  font-size: var(--font-size-4xl);
+  color: var(--primary);
+  margin-bottom: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.servicesHeader p {
+  font-size: var(--font-size-md);
+  color: var(--text);
+  font-weight: 400;
+}
+
+/* Lista de Serviços */
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.service {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.service:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+  transform: translateX(8px);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 197, 253, 0.05) 100%);
+}
+
+.iconService{
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.iconService img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.service h3 {
+  font-size: var(--font-size-lg);
+  color: var(--text);
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.service:hover h3 {
+  color: var(--primary-light);
+}
+
+/* Seção Hero */
+.heroSection {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.heroImg {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.15);
+}
+
+.heroImg img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.heroImg:hover img {
+  transform: scale(1.05);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  pointer-events: none;
+}
+
+.imgInfo {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+  color: white;
+  z-index: 2;
+}
+
+.imgInfo h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.imgInfo p {
+  font-size:var(--font-size-md);
+  margin-bottom: 24px;
+  opacity: 0.95;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.agendarBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+
+.agendarBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+  background: var(--primary-light);
+  color: white;
+}
+
+.agendarBtn:active {
+  transform: translateY(0);
+}
+
+.agendarBtn svg {
+  transition: transform 0.3s ease;
+}
+
+.agendarBtn:hover svg {
+  transform: translateX(4px);
+}
+
+
+.differencesSection {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.differencesHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.differencesHeader h2 {
+  font-size:var(--font-size-4xl);
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.differencesHeader p {
+  font-size: var(--font-size-md);
+  color: var(--text);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.differencesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.difference {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08);
+  border: 2px solid transparent;
+}
+
+.difference:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+  border-color: var(--primary-light)
+}
+
+.differenceIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.difference:hover .differenceIcon {
+  transform: scale(1.1) rotate(5deg);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+}
+
+.diffenreceIcon svg {
+  color: white;
+  fill: white;
+}
+
+.difference h3 {
+  font-size: var(--font-size-lg);
+  color: var(--text);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.difference p {
+  font-size: var(--font-size-md);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Seção do Mapa */
+.mapSection {
+  width: 100%;
+  padding: 80px 0 0;
+}
+
+.mapHeader {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 40px;
+}
+
+.mapHeader h2 {
+  font-size: var(--font-size-4xl);
+  color:var(--primary);
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.mapHeader p {
+  font-size: var(--font-size-md);
+  color: var(--text)
+}
+
+.mapaContent{
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 -4px 20px rgba(30, 58, 138, 0.1), 0 4px 20px rgba(30, 58, 138, 0.1);
+}
+
+.mapaContent iframe {
+  display: block;
+}
+
+/* Botão Logout */
+.logout {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  padding: 10px 24px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  z-index: 1200;
+}
+
+.logout:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.logout:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 60px 30px;
+  }
+
+  .servicosHeader h1,
+  .mapaHeader h2,
+  .diferenciaisHeader h2,
+  .horariosInfo h2 {
+    font-size: 2rem;
+  }
+
+  .imgInfo h2 {
+    font-size: 1.8rem;
+  }
+
+  .diferenciaisSection,
+  .numerosSection,
+  .horariosSection {
+    padding: 60px 30px;
+  }
+
+  .diferenciaisGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .numerosContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .horariosContainer {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .horariosCard {
+    max-width: 100%;
+  }
+}
+
+

@@ -1,0 +1,68 @@
+.gridContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.gridItem {
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 25px;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.gridItem img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.gridItem .info {
+  flex: 1;
+}
+
+.gridItem h3 {
+  color: #273b76;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.4s ease;
+}
+
+.gridItem:hover {
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(39, 59, 118, 0.4);
+}
+
+.gridItem:hover h3 {
+  color: white;
+  transform: translateX(5px);
+}
+
+.gridItem:hover img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.gridItem:active {
+  transform: translateY(-2px) scale(1);
+}
+
+.gridItem {
+  animation: fadeInUp 0.5s ease backwards;
+}
