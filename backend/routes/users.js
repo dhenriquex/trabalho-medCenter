@@ -12,6 +12,8 @@ import {
   perfilCliente,
   autenticarToken,
   dashboardMedico,
+  atualizarStatusExame,
+  atualizarStatusConsulta,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -23,6 +25,8 @@ router.get("/exames", exames);
 router.get("/consultas", consultas);
 router.get("/perfil-clientes", autenticarToken, perfilCliente);
 router.get("/dashboard", autenticarToken, dashboardMedico);
+router.put("/consulta/:id/status", atualizarStatusConsulta);
+router.put("/exame/:id/statusExame", atualizarStatusExame);
 router.post("/medicos", addMedico);
 router.post("/clientes", addCliente);
 

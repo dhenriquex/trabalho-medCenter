@@ -132,8 +132,8 @@ const Home: React.FC<HomeProps> = ({ onLogout, onNavigate }) => {
                 eficazes
               </p>
             </div>
-            <div className={style.diferencial}>
-              <div className={style.diferencialIcon}>
+            <div className={style.difference}>
+              <div className={style.differenceIcon}>
                 <svg
                   width="48"
                   height="48"

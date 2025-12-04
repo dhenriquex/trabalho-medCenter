@@ -67,7 +67,9 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
     useState<Consulta | null>(null);
   const [exameSelecionado, setExameSelecionado] = useState<Exame | null>(null);
   const [novoStatus, setNovoStatus] = useState<string>("");
+  const [novoStatusExame, setNovoStatusExame] = useState<string>("");
   const [observacoes, setObservacoes] = useState<string>("");
+  const [observacoesExame, setObservacoesExame] = useState<string>("");
 
   // Estados para dados do backend
   const [medico, setMedico] = useState<Medico | null>(null);
@@ -115,7 +117,6 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
       setConsultasSemana(data.consultasSemana || []);
       setExamesPendentes(data.examesPendentes || []);
     } catch (error) {
-      console.error("❌ Erro ao buscar dados:", error);
       alert("Erro ao carregar dashboard: " + error);
     } finally {
       setLoading(false);
@@ -131,6 +132,8 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
 
   const abrirModalExame = (exame: Exame) => {
     setExameSelecionado(exame);
+    setNovoStatusExame(exame.status);
+    setObservacoesExame("");
     setModalExame(true);
   };
 
@@ -140,21 +143,20 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
     setConsultaSelecionada(null);
     setExameSelecionado(null);
     setNovoStatus("");
+    setNovoStatusExame("");
     setObservacoes("");
+    setObservacoesExame("");
   };
 
   const atualizarStatusConsulta = async () => {
     if (!consultaSelecionada) return;
 
     try {
-      const token = localStorage.getItem("token");
-
       const response = await fetch(
         `http://localhost:8800/consulta/${consultaSelecionada.id}/status`,
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -165,15 +167,48 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
       );
 
       if (response.ok) {
-        alert("Status atualizado com sucesso!");
+        alert("Status da consulta atualizado com sucesso!");
         fecharModais();
-        buscarDadosDashboard(); // Recarregar dados
+        buscarDadosDashboard();
       } else {
-        throw new Error("Erro ao atualizar status");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Erro ao atualizar status");
       }
     } catch (error) {
-      console.error("Erro ao atualizar status:", error);
-      alert("Erro ao atualizar status da consulta");
+      alert("Erro ao atualizar status da consulta: " + error);
+      console.error(error);
+    }
+  };
+
+  const atualizarStatusExame = async () => {
+    if (!exameSelecionado) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:8800/exame/${exameSelecionado.id}/statusExame`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: novoStatusExame,
+            observacoes: observacoesExame,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        alert("Status do exame atualizado com sucesso!");
+        fecharModais();
+        buscarDadosDashboard();
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Erro ao atualizar status");
+      }
+    } catch (error) {
+      alert("Erro ao atualizar status do exame: " + error);
+      console.error(error);
     }
   };
 
@@ -592,7 +627,26 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
 
             <div className={styles.formGroup}>
               <label>Status</label>
-              <input type="text" value={exameSelecionado.status} disabled />
+              <select
+                value={novoStatusExame}
+                onChange={(e) => setNovoStatusExame(e.target.value)}
+              >
+                <option value="Marcado">Marcado</option>
+                <option value="Em Analise">Em Análise</option>
+                <option value="Realizado">Realizado</option>
+                <option value="Concluido">Concluído</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Observações</label>
+              <textarea
+                rows={4}
+                value={observacoesExame}
+                onChange={(e) => setObservacoesExame(e.target.value)}
+                placeholder="Adicione observações sobre o exame..."
+              />
             </div>
 
             <div className={styles.formActions}>
@@ -600,7 +654,13 @@ const DashboardMedico: React.FC<MedicoProps> = ({ onLogout, onNavigate }) => {
                 className={`${styles.btn} ${styles.btnSecondary}`}
                 onClick={fecharModais}
               >
-                Fechar
+                Cancelar
+              </button>
+              <button
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                onClick={atualizarStatusExame}
+              >
+                Salvar Alterações
               </button>
             </div>
           </div>

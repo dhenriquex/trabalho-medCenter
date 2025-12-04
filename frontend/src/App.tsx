@@ -47,7 +47,6 @@ export const App = () => {
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname;
-      console.log("🔄 URL mudou para:", path);
 
       if (path === "/consultas") {
         setCurrentPage("consultas");
@@ -70,7 +69,6 @@ export const App = () => {
 
   // Função para navegar entre páginas
   const navigateTo = (page: string) => {
-    console.log("Navegando para:", page);
     setCurrentPage(page);
     localStorage.setItem("currentPage", page);
 
@@ -95,7 +93,6 @@ export const App = () => {
         path = `/${page}`;
     }
 
-    console.log("URL atualizada para:", path);
     window.history.pushState({}, "", path);
   };
 
@@ -135,8 +132,6 @@ export const App = () => {
         // Navegar para a página apropriada
         const page = data.user.tipo === "cliente" ? "home" : "dashboard";
         navigateTo(page);
-
-        console.log("Estado atualizado para:", data.user.tipo);
       } else {
         setError(data.error || "Erro no login.");
       }
@@ -147,7 +142,6 @@ export const App = () => {
   };
 
   const handleLogout = () => {
-    console.log("Fazendo logout...");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("currentPage");
@@ -176,8 +170,6 @@ export const App = () => {
 
   // Sistema de rotas baseado no estado
   if (isLoggedIn) {
-    console.log("👤 Tipo:", userType, "| 📄 Página:", currentPage);
-
     // Rotas para cliente
     if (userType === "cliente") {
       switch (currentPage) {
@@ -206,8 +198,6 @@ export const App = () => {
     }
   }
 
-  // Renderizar página de login
-  console.log("Renderizando página de Login");
   return (
     <div className={style.body}>
       <main>
