@@ -294,8 +294,178 @@ export const addCliente = (req, res) => {
   });
 };
 
-export const exames = () => (req, res) => {};
-export const consultas = () => (req, res) => {};
+export const exames = (req, res) => {
+  const {
+    tipo,
+    dataEmissao,
+    dataRequerimento, 
+    valor, 
+    statusEx, 
+    cliente_id, 
+    medico_id, 
+    pagamento_id,
+    prioridade, 
+    observacoes, 
+    possuiDoencaCronica, 
+    doencasCronicas, 
+    possuiAlergia, 
+    alergias,
+    possuiIndicacao, 
+    nomeMedicoIndicacao, 
+    especialidadeIndicacao, 
+    arquivoIndicacao, 
+    local_id, 
+    horario
+  } = req.body;
+
+  // 1. Validação mínima
+  if (
+    !tipo ||
+    !dataEmissao ||
+    !dataRequerimento ||
+    !valor ||
+    !statusEx ||
+    !cliente_id ||
+    !medico_id ||
+    !pagamento_id ||
+    !prioridade ||
+    !observacoes ||
+    !doencasCronicas || 
+    !possuiAlergia ||
+    !possuiIndicacao ||
+    !local_id || 
+    !horario
+  ) {
+    return res
+      .status(400)
+      .json("Todos os campos obrigatórios devem ser preenchidos.");
+  }
+
+  // 2. Inserir exame
+  const qExame = `
+    INSERT INTO exame (tipo, dataEmissao, dataRequerimento, valor, statusEx, cliente_id, 
+    medico_id, pagamento_id, prioridade, observacoes, possuiDoencaCronica, doencasCronicas, 
+    possuiAlergia, alergias, possuiIndicacao, nomeMedicoIndicacao, especialidadeIndicacao, 
+    arquivoIndicacao, local_id, horario)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const valuesExame = [
+    tipo,
+    dataEmissao,
+    dataRequerimento, 
+    valor, 
+    statusEx, 
+    cliente_id, 
+    medico_id, 
+    pagamento_id,
+    prioridade, 
+    observacoes, 
+    possuiDoencaCronica, 
+    doencasCronicas ?? null, 
+    possuiAlergia, 
+    alergias ?? null,
+    possuiIndicacao, 
+    nomeMedicoIndicacao ?? null, 
+    especialidadeIndicacao ?? null, 
+    arquivoIndicacao ?? null, 
+    local_id, 
+    horario,
+  ];
+
+  db.query(qExame, valuesExame, (errExame, resultExame) => {
+    if (errExame) {
+      console.log("Erro ao inserir exame:", errExame);
+      return res
+        .status(500)
+        .json("Erro ao inserir exame: " + errExame.message);
+  
+    }
+    return res.status(201).json({
+      message: "Exame cadastrado com sucesso!",
+      exame: resultExame
+    });
+  });
+};
+
+export const consultas = (req, res) => {
+  const{
+    tipo, 
+    subtipo, 
+    dataConsulta, 
+    valor, 
+    descricaoConsul, 
+    laboratorio, 
+    statusEx, 
+    cliente_id, 
+    medico_id, 
+    pagamento_id,
+    prioridade, 
+    observacoes, 
+    local_id, 
+    horario
+  } = req.body;
+
+  // 1. Validação mínima
+  if (
+    !tipo ||
+    !subtipo ||
+    !dataConsulta ||
+    !valor ||
+    !descricaoConsul ||
+    !laboratorio ||
+    !statusEx ||
+    !cliente_id ||
+    !medico_id ||
+    !pagamento_id ||
+    !prioridade ||
+    !observacoes || 
+    !local_id || 
+    !horario
+  ) {
+    return res
+      .status(400)
+      .json("Todos os campos obrigatórios devem ser preenchidos.");
+  }
+
+  // 2. Inserir consulta
+  const qConsulta = `
+    INSERT INTO consulta (tipo, subtipo, dataConsulta, valor, descricaoConsul, 
+    laboratorio,statusEx, cliente_id, medico_id, pagamento_id, prioridade, 
+    observacoes, local_id, horario)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const valuesConsulta = [
+    tipo, 
+    subtipo, 
+    dataConsulta, 
+    valor, 
+    descricaoConsul, 
+    laboratorio, 
+    statusEx, 
+    cliente_id, 
+    medico_id, 
+    pagamento_id,
+    prioridade, 
+    observacoes ?? null,
+    local_id, 
+    horario,
+  ];
+
+  db.query(qConsulta, valuesConsulta, (errConsulta, resultConsulta) => {
+    if (errConsulta) {
+      console.log("Erro ao inserir consulta:", errConsulta);
+      return res
+        .status(500)
+        .json("Erro ao inserir Consulta: " + errConsulta.message);
+  
+    }
+    return res.status(201).json({
+      message: "Consulta cadastrada com sucesso!",
+      consulta: resultConsulta
+    });
+  });
+};
+
 export const updateUser = (req, res) => {
   // Implemente depois se precisar (ex: UPDATE com JOIN se alterar endereço)
 };
